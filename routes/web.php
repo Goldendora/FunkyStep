@@ -1,0 +1,75 @@
+<?php
+
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\TwoFactorController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
+
+// -------------------------------------------------------------
+// LOGIN / LOGOUT / REGISTER
+// -------------------------------------------------------------
+
+// Formulario de login
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+
+// Procesar login
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+
+// Logout
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Registro de nuevos usuarios
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+
+// -------------------------------------------------------------
+// CONTRASEÑA OLVIDADA / RESET
+// -------------------------------------------------------------
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+// -------------------------------------------------------------
+// RUTAS PROTEGIDAS (solo usuarios autenticados y no baneados)
+// -------------------------------------------------------------
+Route::middleware(['auth', 'baneo'])->group(function () {
+
+    // Dashboard general
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    // ---------------------------------------------------------
+    // VERIFICACIÓN 2FA
+    // ---------------------------------------------------------
+    Route::post('/send-2fa-code', [TwoFactorController::class, 'sendCode'])->name('verify.2fa.send');
+    Route::get('/verify-2fa', [TwoFactorController::class, 'showVerifyForm'])->name('verify.2fa');
+    Route::post('/verify-2fa', [TwoFactorController::class, 'verify'])->name('verify.2fa.post');
+
+    // ---------------------------------------------------------
+    // GESTIÓN DE USUARIOS (SOLO ADMIN)
+    // ---------------------------------------------------------
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::put('/users/{id}/role', [UserController::class, 'updateRole'])->name('users.updateRole');
+
+    // ---------------------------------------------------------
+    // SISTEMA DE BANEOS
+    // ---------------------------------------------------------
+    // Banear usuario
+    Route::post('/users/{id}/ban', [UserController::class, 'ban'])->name('users.ban');
+
+    // Desbanear usuario
+    Route::post('/users/{id}/unban', [UserController::class, 'unban'])->name('users.unban');
+});
+
+// -------------------------------------------------------------
+// REDIRECCIÓN RAÍZ
+// -------------------------------------------------------------
+Route::get('/', function () {
+    return auth()->check()
+        ? redirect()->route('dashboard')
+        : redirect()->route('login');
+});
