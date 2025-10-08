@@ -36,9 +36,9 @@
                 <h2 class="fw-bold">
                     Bienvenido 
                     @if(Auth::check())
-                        {{ Auth::user()->name }} 👋
+                        {{ Auth::user()->name }} 
                     @else
-                        visitante 👋
+                        visitante 
                     @endif
                 </h2>
                 <p class="text-muted">Explora Funkystep y disfruta de tu experiencia.</p>
@@ -46,7 +46,7 @@
 
             {{-- Mensaje general --}}
             @if(Auth::check())
-                <p class="text-center fs-5">Has iniciado sesión correctamente 🎉</p>
+                <p class="text-center fs-5">Has iniciado sesión correctamente </p>
             @else
                 <p class="text-center fs-5">Regístrate o inicia sesión para acceder a todas las funciones.</p>
             @endif
@@ -55,7 +55,7 @@
             @if(Auth::check() && Auth::user()->role === 'admin')
                 <div class="text-center mt-4">
                     <a href="{{ route('users.index') }}" class="btn btn-primary px-4 py-2">
-                        👥 Gestionar Usuarios
+                         Gestionar Usuarios
                     </a>
                 </div>
             @endif
