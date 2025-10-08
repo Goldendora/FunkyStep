@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Funkystep</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
+
 <body class="bg-light d-flex align-items-center justify-content-center" style="height:100vh;">
 
     <div class="card shadow p-4" style="width: 400px;">
@@ -43,7 +45,12 @@
             <a href="{{ route('register') }}">Crear cuenta</a>
             <a href="{{ route('password.request') }}">Olvidé mi contraseña</a>
         </div>
+        <div class="btn btn-outline-primary btn-sm mt-2">
+            <a href="{{ route('dashboard') }}">Continuar como invitado</a>
+        </div>
+        
     </div>
 
 </body>
+
 </html>
