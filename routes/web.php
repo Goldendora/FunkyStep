@@ -70,4 +70,11 @@ Route::middleware(['auth', 'baneo'])->group(function () {
     // ---------------------------------------------------------
     Route::post('/users/{id}/ban', [UserController::class, 'ban'])->name('users.ban');
     Route::post('/users/{id}/unban', [UserController::class, 'unban'])->name('users.unban');
+
+    // ---------------------------------------------------------
+    // INFORMACIÓN DEL USUARIO
+    // ---------------------------------------------------------
+    Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
+
+    
 });

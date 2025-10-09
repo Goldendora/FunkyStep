@@ -23,6 +23,12 @@ class User extends Authenticatable
         'password',
         'two_factor_code',
         'two_factor_expires_at',
+        'role',
+        'profile_photo',
+        'address',        
+        'city',          
+        'postal_code',    
+        'phone_number',   
     ];
 
     /**
@@ -33,7 +39,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'two_factor_code', // 👈 ocultamos el código 2FA también
+        'two_factor_code', 
     ];
 
     /**
@@ -50,10 +56,10 @@ class User extends Authenticatable
         ];
     }
 
-public function baneoActivo()
-{
-    return $this->hasOne(\App\Models\UsuarioBaneado::class, 'id_usuario')
-                ->where('estado', 'activo');
-}
+    public function baneoActivo()
+    {
+        return $this->hasOne(\App\Models\UsuarioBaneado::class, 'id_usuario')
+            ->where('estado', 'activo');
+    }
 
 }
