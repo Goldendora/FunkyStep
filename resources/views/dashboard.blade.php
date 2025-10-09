@@ -90,76 +90,70 @@
             @if(Auth::check() && Auth::user()->role === 'admin')
                 <div class="text-center mt-4">
                     <a href="{{ route('users.index') }}" class="btn btn-primary px-4 py-2">
-                        👥 Gestionar Usuarios
+                         Gestionar Usuarios
                     </a>
                 </div>
             @endif
         </div>
     </div>
 
-    {{-- Modal para cambiar foto de perfil --}}
-    @if(Auth::check())
-        <div class="modal fade" id="photoModal" tabindex="-1" aria-labelledby="photoModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content shadow">
-                    <div class="modal-header bg-dark text-white">
-                        <h5 class="modal-title" id="photoModalLabel">Editar perfil</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+    {{-- Catálogo público de productos --}}
+    @if(isset($products) && count($products) > 0)
+        <div class="container mt-5">
+            <h3 class="fw-bold text-center mb-4">Catálogo de Zapatillas</h3>
+            <div class="row g-4">
+                @foreach($products as $product)
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card h-100 shadow-sm border-0">
+                            <img src="{{ $product->image
+                    ? asset('storage/' . $product->image)
+                    : 'https://via.placeholder.com/300' }}" class="card-img-top" alt="{{ $product->name }}"
+                                style="height: 250px; object-fit: cover;">
+
+                            <div class="card-body text-center">
+                                <h5 class="card-title fw-bold">{{ $product->name }}</h5>
+                                <p class="text-muted small mb-1">{{ $product->brand }}</p>
+                                <p class="fw-bold text-success mb-1">
+                                    ${{ number_format($product->final_price, 2) }}
+                                </p>
+
+                                @if($product->discount > 0)
+                                    <p class="text-danger small mb-2">
+                                        <del>${{ number_format($product->price, 2) }}</del>
+                                        -{{ $product->discount }}%
+                                    </p>
+                                @endif
+
+                                @if($product->stock > 0)
+                                    <button class="btn btn-outline-primary btn-sm w-100">
+                                        Agregar al carrito
+                                    </button>
+                                @else
+                                    <button class="btn btn-secondary btn-sm w-100" disabled>
+                                        Agotado
+                                    </button>
+                                @endif
+                            </div>
+                        </div>
                     </div>
-
-                    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="modal-body">
-                            {{-- Foto de perfil --}}
-                            <div class="text-center mb-4">
-                                <img src="{{ Auth::user()->profile_photo
-            ? asset('storage/' . Auth::user()->profile_photo)
-            : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}" alt="Foto actual"
-                                    class="rounded-circle mb-3" width="120" height="120">
-                                <div class="mb-3">
-                                    <label for="profile_photo" class="form-label fw-bold">Cambiar foto</label>
-                                    <input type="file" name="profile_photo" accept="image/*" class="form-control">
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            {{-- Datos de envío --}}
-                            <h6 class="fw-bold text-center mb-3">Información de envío</h6>
-
-                            <div class="mb-3">
-                                <label class="form-label">Dirección</label>
-                                <input type="text" name="address" class="form-control"
-                                    value="{{ old('address', Auth::user()->address) }}">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Ciudad</label>
-                                <input type="text" name="city" class="form-control"
-                                    value="{{ old('city', Auth::user()->city) }}">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Código Postal</label>
-                                <input type="text" name="postal_code" class="form-control"
-                                    value="{{ old('postal_code', Auth::user()->postal_code) }}">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Número de Teléfono</label>
-                                <input type="text" name="phone_number" class="form-control"
-                                    value="{{ old('phone_number', Auth::user()->phone_number) }}">
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary w-100">Guardar cambios</button>
-                        </div>
-                    </form>
-                </div>
+                @endforeach
             </div>
         </div>
+    @else
+        <div class="text-center text-muted mt-5">
+            <p>No hay productos disponibles en este momento.</p>
+        </div>
+    @endif
+
+    @if(Auth::check() && Auth::user()->role === 'admin')
+        <div class="container text-end my-4">
+            <a href="{{ route('products.create') }}" class="btn btn-primary">Agregar Producto</a>
+        </div>
+    @endif
+
+    {{--  Modal de perfil incluido desde partials --}}
+    @if(Auth::check())
+        @include('partials.profile-modal')
     @endif
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

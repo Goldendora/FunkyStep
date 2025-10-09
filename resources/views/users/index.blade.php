@@ -1,40 +1,20 @@
-<!DOCTYPE html>
-<html lang="es">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Usuarios - Funkystep</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-</head>
+@section('content')
+<div class="container">
+    <div class="card shadow p-4 border-0">
+        <h2 class="mb-4 fw-bold">Gestión de Usuarios</h2>
 
-<body class="bg-light">
+        {{-- Mensajes de éxito o error --}}
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
 
-    {{-- Navbar --}}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-        <a class="navbar-brand" href="{{ route('dashboard') }}">Funkystep</a>
-        <div class="ms-auto">
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-outline-light btn-sm">Cerrar sesión</button>
-            </form>
-        </div>
-    </nav>
-
-    {{-- Contenido principal --}}
-    <div class="container mt-5">
-        <div class="card shadow p-4">
-            <h2 class="mb-4">👥 Gestión de Usuarios</h2>
-
-            {{-- Mensajes de éxito o error --}}
-            @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-            @if(session('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div>
-            @endif
-
-            {{-- Tabla --}}
+        {{-- Tabla de usuarios --}}
+        <div class="table-responsive">
             <table class="table table-bordered table-striped align-middle text-center">
                 <thead class="table-dark">
                     <tr>
@@ -55,7 +35,11 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td><span class="badge bg-primary">{{ strtoupper($user->role ?? 'user') }}</span></td>
+                            <td>
+                                <span class="badge bg-primary">
+                                    {{ strtoupper($user->role ?? 'user') }}
+                                </span>
+                            </td>
                             <td>
                                 @if($baneo)
                                     <span class="badge bg-danger">BANEADO</span>
@@ -63,7 +47,8 @@
                                     <span class="badge bg-success">ACTIVO</span>
                                 @endif
                             </td>
-                            <td class="d-flex justify-content-center align-items-center gap-2">
+                            <td class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
+
                                 {{-- Cambiar rol --}}
                                 <form action="{{ route('users.updateRole', $user->id) }}" method="POST" class="d-flex gap-2">
                                     @csrf
@@ -122,12 +107,11 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
 
-            <a href="{{ route('dashboard') }}" class="btn btn-secondary mt-3">⬅ Volver al Dashboard</a>
+        <div class="text-end mt-3">
+            <a href="{{ route('dashboard') }}" class="btn btn-secondary">Volver al Dashboard</a>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+</div>
+@endsection

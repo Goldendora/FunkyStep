@@ -6,6 +6,8 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\TwoFactorController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+
 
 // -------------------------------------------------------------
 // LOGIN / LOGOUT / REGISTER
@@ -36,9 +38,8 @@ Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name(
 // DASHBOARD PÚBLICO
 // -------------------------------------------------------------
 // Cualquier usuario (logueado o invitado) puede acceder.
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::get('/dashboard', [ProductController::class, 'showPublic'])->name('dashboard');
+
 
 // -------------------------------------------------------------
 // REDIRECCIÓN RAÍZ (Home -> Dashboard)
@@ -76,5 +77,17 @@ Route::middleware(['auth', 'baneo'])->group(function () {
     // ---------------------------------------------------------
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 
-    
+    // -------------------------------------------------------------
+    // PRODUCTOS (solo admin)
+    // -------------------------------------------------------------
+    // Verificación de rol admin
+    Route::middleware(['admin'])->group(function () {
+        Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+        Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+        Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+        Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+        Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
+        Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+    });
 });
+
