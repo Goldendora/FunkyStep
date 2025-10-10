@@ -53,11 +53,16 @@ class ProductController extends Controller
             'sku' => 'required|string|max:50|unique:products',
             'discount' => 'nullable|numeric|min:0|max:100',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'is_active' => 'nullable', 
         ]);
 
+        // Guardar imagen
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('product_images', 'public');
         }
+
+        // Marcar si está activo o no
+        $validated['is_active'] = $request->has('is_active');
 
         Product::create($validated);
 
@@ -89,14 +94,19 @@ class ProductController extends Controller
             'brand' => 'nullable|string|max:100',
             'discount' => 'nullable|numeric|min:0|max:100',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'is_active' => 'nullable', 
         ]);
 
+        // Si se sube una nueva imagen, reemplazar la anterior
         if ($request->hasFile('image')) {
             if ($product->image && Storage::disk('public')->exists($product->image)) {
                 Storage::disk('public')->delete($product->image);
             }
             $validated['image'] = $request->file('image')->store('product_images', 'public');
         }
+
+        // Marcar si está activo o no
+        $validated['is_active'] = $request->has('is_active');
 
         $product->update($validated);
 
