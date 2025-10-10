@@ -15,6 +15,19 @@
             cursor: pointer;
             border: 2px solid #fff;
         }
+        .cart-btn {
+            position: relative;
+        }
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background: red;
+            color: #fff;
+            border-radius: 50%;
+            padding: 2px 7px;
+            font-size: 12px;
+        }
     </style>
 </head>
 
@@ -25,39 +38,52 @@
         <a class="navbar-brand fw-bold" href="#">Funkystep</a>
 
         <div class="ms-auto d-flex align-items-center gap-3">
+
             @if(Auth::check())
-                    {{-- Menú de usuario con foto --}}
-                    <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userMenu"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ Auth::user()->profile_photo
-                ? asset('storage/' . Auth::user()->profile_photo)
-                : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}" alt="Foto de perfil"
-                                class="profile-img me-2">
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
-                            <li class="dropdown-item text-center">
-                                <strong>{{ Auth::user()->name }}</strong>
-                                <p class="text-muted mb-0 small">{{ Auth::user()->email }}</p>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <button type="button" class="dropdown-item text-center btn btn-outline-primary btn-sm w-100"
-                                    data-bs-toggle="modal" data-bs-target="#photoModal">
-                                    Editar perfil
+                {{-- Botón del carrito --}}
+                <div class="cart-btn me-3">
+                    <a href="{{ route('cart.index') }}" class="btn btn-outline-light position-relative">
+                        Carrito
+                        @php
+                            $cartCount = \App\Models\CartItem::where('user_id', Auth::id())->count();
+                        @endphp
+                        @if($cartCount > 0)
+                            <span class="cart-count">{{ $cartCount }}</span>
+                        @endif
+                    </a>
+                </div>
+
+                {{-- Menú de usuario con foto --}}
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userMenu"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ Auth::user()->profile_photo
+                            ? asset('storage/' . Auth::user()->profile_photo)
+                            : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}"
+                            alt="Foto de perfil" class="profile-img me-2">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
+                        <li class="dropdown-item text-center">
+                            <strong>{{ Auth::user()->name }}</strong>
+                            <p class="text-muted mb-0 small">{{ Auth::user()->email }}</p>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <button type="button" class="dropdown-item text-center btn btn-outline-primary btn-sm w-100"
+                                data-bs-toggle="modal" data-bs-target="#photoModal">
+                                Editar perfil
+                            </button>
+                        </li>
+                        <li>
+                            <form action="{{ route('logout') }}" method="POST" class="text-center">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger btn-sm w-100 mt-1">
+                                    Cerrar sesión
                                 </button>
-                            </li>
-                            <li>
-                                <form action="{{ route('logout') }}" method="POST" class="text-center">
-                                    @csrf
-                                    <button type="submit" class="btn btn-outline-danger btn-sm w-100 mt-1">Cerrar
-                                        sesión</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
             @else
                 {{-- Si no está logueado --}}
                 <a href="{{ route('register') }}" class="btn btn-outline-light btn-sm">Registrarse</a>
@@ -90,7 +116,7 @@
             @if(Auth::check() && Auth::user()->role === 'admin')
                 <div class="text-center mt-4">
                     <a href="{{ route('users.index') }}" class="btn btn-primary px-4 py-2">
-                         Gestionar Usuarios
+                        Gestionar Usuarios
                     </a>
                 </div>
             @endif
@@ -106,15 +132,16 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="card h-100 shadow-sm border-0">
                             <img src="{{ $product->image
-                    ? asset('storage/' . $product->image)
-                    : 'https://via.placeholder.com/300' }}" class="card-img-top" alt="{{ $product->name }}"
+                                ? asset('storage/' . $product->image)
+                                : 'https://via.placeholder.com/300' }}"
+                                class="card-img-top" alt="{{ $product->name }}"
                                 style="height: 250px; object-fit: cover;">
 
                             <div class="card-body text-center">
                                 <h5 class="card-title fw-bold">{{ $product->name }}</h5>
                                 <p class="text-muted small mb-1">{{ $product->brand }}</p>
                                 <p class="fw-bold text-success mb-1">
-                                    ${{ number_format($product->final_price, 2) }}
+                                    ${{ number_format($product->price - ($product->price * ($product->discount / 100)), 2) }}
                                 </p>
 
                                 @if($product->discount > 0)
@@ -125,9 +152,18 @@
                                 @endif
 
                                 @if($product->stock > 0)
-                                    <button class="btn btn-outline-primary btn-sm w-100">
-                                        Agregar al carrito
-                                    </button>
+                                    @auth
+                                        <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-outline-primary btn-sm w-100">
+                                                Agregar al carrito 
+                                            </button>
+                                        </form>
+                                    @else
+                                        <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm w-100">
+                                            Inicia sesión para comprar
+                                        </a>
+                                    @endauth
                                 @else
                                     <button class="btn btn-secondary btn-sm w-100" disabled>
                                         Agotado
@@ -151,7 +187,7 @@
         </div>
     @endif
 
-    {{--  Modal de perfil incluido desde partials --}}
+    {{-- Modal de perfil --}}
     @if(Auth::check())
         @include('partials.profile-modal')
     @endif

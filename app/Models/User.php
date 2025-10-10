@@ -25,10 +25,10 @@ class User extends Authenticatable
         'two_factor_expires_at',
         'role',
         'profile_photo',
-        'address',        
-        'city',          
-        'postal_code',    
-        'phone_number',   
+        'address',
+        'city',
+        'postal_code',
+        'phone_number',
     ];
 
     /**
@@ -39,7 +39,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'two_factor_code', 
+        'two_factor_code',
     ];
 
     /**
@@ -61,5 +61,11 @@ class User extends Authenticatable
         return $this->hasOne(\App\Models\UsuarioBaneado::class, 'id_usuario')
             ->where('estado', 'activo');
     }
+
+    public function cartItems()
+    {
+        return $this->hasMany(\App\Models\CartItem::class);
+    }
+
 
 }

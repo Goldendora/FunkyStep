@@ -7,6 +7,8 @@ use App\Http\Controllers\TwoFactorController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+
 
 
 // -------------------------------------------------------------
@@ -88,6 +90,17 @@ Route::middleware(['auth', 'baneo'])->group(function () {
         Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
         Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
         Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+
+    // -------------------------------------------------------------
+    // CARRITO DE COMPRAS (usuarios autenticados)
+    // -------------------------------------------------------------
+        Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+        Route::post('/cart/add/{productId}', [CartController::class, 'add'])->name('cart.add');
+        Route::put('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+        Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+        Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+
     });
 });
 

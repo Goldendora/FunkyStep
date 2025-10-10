@@ -56,4 +56,9 @@ class Product extends Model
         $this->total_sales += $quantity;
         $this->save();
     }
+    public function cartItems()
+    {
+        return $this->hasMany(\App\Models\CartItem::class);
+    }
+
 }
