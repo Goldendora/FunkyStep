@@ -49,14 +49,6 @@ class Product extends Model
     }
 
     /**
-     * Relación futura con items de pedido (cuando implementemos pedidos).
-     */
-    public function orderItems()
-    {
-        return $this->hasMany(\App\Models\OrderItem::class); //PENDIENTE HACER PEDIDOS
-    }
-
-    /**
      * Método para aumentar el contador de ventas.
      */
     public function incrementSales($quantity = 1)
