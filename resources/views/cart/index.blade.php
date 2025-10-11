@@ -76,11 +76,6 @@
 
             <div class="ms-auto d-flex align-items-center gap-3">
                 @auth
-                    {{-- Carrito --}}
-                    <a href="{{ route('cart.index') }}" class="btn btn-outline-light btn-sm">
-                        🛒 Mi carrito
-                    </a>
-
                     {{-- Menú usuario --}}
                     <div class="dropdown">
                         <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
@@ -214,6 +209,11 @@
             @endif
         </div>
     </div>
+
+<div class="d-flex justify-content-end mt-3 me-4">
+    <a href="{{ route('dashboard') }}" class="btn btn-secondary">Volver al Dashboard</a>
+</div>
+
 
     <footer class="text-center small mt-5 mb-3 text-muted">
         © {{ date('Y') }} Funkystep. Todos los derechos reservados.

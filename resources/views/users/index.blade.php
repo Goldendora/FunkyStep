@@ -108,10 +108,6 @@
                 </tbody>
             </table>
         </div>
-
-        <div class="text-end mt-3">
-            <a href="{{ route('dashboard') }}" class="btn btn-secondary">Volver al Dashboard</a>
-        </div>
     </div>
 </div>
 @endsection
