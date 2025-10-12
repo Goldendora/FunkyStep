@@ -7,31 +7,6 @@
     <title>Dashboard - Funkystep</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     @vite(['resources/css/style.css'])
-    <!-- <style>
-        .profile-img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            object-fit: cover;
-            cursor: pointer;
-            border: 2px solid #fff;
-        }
-
-        .cart-btn {
-            position: relative;
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -10px;
-            background: red;
-            color: #fff;
-            border-radius: 50%;
-            padding: 2px 7px;
-            font-size: 12px;
-        }
-    </style> -->
 </head>
 
 <body class="bg-light">
@@ -135,20 +110,20 @@
             <div class="row g-4">
                 @foreach($products as $product)
                     <div class="col-md-3 col-sm-6">
-                        <div class="card h-100 shadow-sm border-0" style="cursor: pointer;" onclick="showProductModal(
-                                                            '{{ $product->name }}',
-                                                            '{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/600' }}',
-                                                            '{{ $product->brand }}',
-                                                            '{{ $product->category }}',
-                                                            '{{ $product->description }}',
-                                                            '{{ number_format($product->price - ($product->price * ($product->discount / 100)), 0, ',', '.') }}',
-                                                            '{{ $product->discount }}',
-                                                            '{{ $product->stock }}'
-                                                        )">
+                        <div class="card h-100 shadow-sm border-0" style="cursor: pointer;">
                             <img src="{{ $product->image
                     ? asset('storage/' . $product->image)
                     : 'https://via.placeholder.com/300' }}" class="card-img-top" alt="{{ $product->name }}"
-                                style="height: 250px; object-fit: cover;">
+                                style="height: 250px; object-fit: cover;" onclick="showProductModal(
+                                                                    '{{ $product->name }}',
+                                                                    '{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/600' }}',
+                                                                    '{{ $product->brand }}',
+                                                                    '{{ $product->category }}',
+                                                                    '{{ $product->description }}',
+                                                                    '{{ number_format($product->price - ($product->price * ($product->discount / 100)), 0, ',', '.') }}',
+                                                                    '{{ $product->discount }}',
+                                                                    '{{ $product->stock }}'
+                                                                )">
 
                             <div class="card-body text-center">
                                 <h5 class="card-title fw-bold">{{ $product->name }}</h5>
@@ -229,10 +204,24 @@
                                         <p id="modalStock" class="text-muted small mb-0"></p>
                                     </div>
                                 </div>
-
-                                <button class="btn btn-primary btn-lg rounded-pill shadow-sm w-100 mt-3 fw-semibold">
-                                    Agregar al carrito
-                                </button>
+                                @if($product->stock > 0)
+                                    @auth
+                                        <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                                            @csrf
+                                            <button class="btn btn-gradient btn-lg rounded-pill w-100 mt-3 fw-semibold">
+                                                Agregar al carrito
+                                            </button>
+                                        </form>
+                                    @else
+                                        <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm w-100">
+                                            Inicia sesión para comprar
+                                        </a>
+                                    @endauth
+                                @else
+                                    <button class="btn btn-secondary btn-sm w-100" disabled>
+                                        Agotado
+                                    </button>
+                                @endif
                             </div>
 
                         </div>

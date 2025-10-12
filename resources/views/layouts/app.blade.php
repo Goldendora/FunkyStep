@@ -6,60 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Funkystep - Panel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        body {
-            background-color: #f8f9fa;
-            overflow-x: hidden;
-        }
-
-        .sidebar {
-            min-height: 100vh;
-            background-color: #212529;
-            color: #fff;
-            padding-top: 1.5rem;
-        }
-
-        .sidebar a {
-            color: #adb5bd;
-            text-decoration: none;
-            display: block;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-            transition: all 0.2s;
-        }
-
-        .sidebar a:hover,
-        .sidebar a.active {
-            background-color: #495057;
-            color: #fff;
-        }
-
-        .navbar {
-            background-color: #212529;
-        }
-
-        .content-wrapper {
-            margin-left: 240px;
-            padding: 2rem;
-        }
-
-        .profile-img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #fff;
-            cursor: pointer;
-        }
-
-        @media (max-width: 992px) {
-            .content-wrapper {
-                margin-left: 0;
-            }
-        }
-    </style>
+    @vite(['resources/css/style.css'])
 </head>
 
 <body>
