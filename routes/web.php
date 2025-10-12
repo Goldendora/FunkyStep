@@ -61,19 +61,6 @@ Route::middleware(['auth', 'baneo'])->group(function () {
     Route::post('/send-2fa-code', [TwoFactorController::class, 'sendCode'])->name('verify.2fa.send');
     Route::get('/verify-2fa', [TwoFactorController::class, 'showVerifyForm'])->name('verify.2fa');
     Route::post('/verify-2fa', [TwoFactorController::class, 'verify'])->name('verify.2fa.post');
-
-    // ---------------------------------------------------------
-    // GESTIÓN DE USUARIOS (SOLO ADMIN)
-    // ---------------------------------------------------------
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::put('/users/{id}/role', [UserController::class, 'updateRole'])->name('users.updateRole');
-
-    // ---------------------------------------------------------
-    // SISTEMA DE BANEOS (ADMIN)
-    // ---------------------------------------------------------
-    Route::post('/users/{id}/ban', [UserController::class, 'ban'])->name('users.ban');
-    Route::post('/users/{id}/unban', [UserController::class, 'unban'])->name('users.unban');
-
     // ---------------------------------------------------------
     // INFORMACIÓN DEL USUARIO
     // ---------------------------------------------------------
@@ -90,14 +77,27 @@ Route::middleware(['auth', 'baneo'])->group(function () {
         Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
         Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
         Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+        // ---------------------------------------------------------
+        // GESTIÓN DE USUARIOS (SOLO ADMIN)
+        // ---------------------------------------------------------
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::put('/users/{id}/role', [UserController::class, 'updateRole'])->name('users.updateRole');
+
+        // ---------------------------------------------------------
+        // SISTEMA DE BANEOS (ADMIN)
+        // ---------------------------------------------------------
+        Route::post('/users/{id}/ban', [UserController::class, 'ban'])->name('users.ban');
+        Route::post('/users/{id}/unban', [UserController::class, 'unban'])->name('users.unban');
+
     });
     // -------------------------------------------------------------
     // CARRITO DE COMPRAS (usuarios autenticados)
     // -------------------------------------------------------------
-        Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-        Route::post('/cart/add/{productId}', [CartController::class, 'add'])->name('cart.add');
-        Route::put('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
-        Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-        Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add/{productId}', [CartController::class, 'add'])->name('cart.add');
+    Route::put('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 });
 
