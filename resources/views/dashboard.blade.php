@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Funkystep</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <style>
+    @vite(['resources/css/style.css'])
+    <!-- <style>
         .profile-img {
             width: 45px;
             height: 45px;
@@ -30,7 +31,7 @@
             padding: 2px 7px;
             font-size: 12px;
         }
-    </style>
+    </style> -->
 </head>
 
 <body class="bg-light">
@@ -134,7 +135,16 @@
             <div class="row g-4">
                 @foreach($products as $product)
                     <div class="col-md-3 col-sm-6">
-                        <div class="card h-100 shadow-sm border-0">
+                        <div class="card h-100 shadow-sm border-0" style="cursor: pointer;" onclick="showProductModal(
+                                                            '{{ $product->name }}',
+                                                            '{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/600' }}',
+                                                            '{{ $product->brand }}',
+                                                            '{{ $product->category }}',
+                                                            '{{ $product->description }}',
+                                                            '{{ number_format($product->price - ($product->price * ($product->discount / 100)), 0, ',', '.') }}',
+                                                            '{{ $product->discount }}',
+                                                            '{{ $product->stock }}'
+                                                        )">
                             <img src="{{ $product->image
                     ? asset('storage/' . $product->image)
                     : 'https://via.placeholder.com/300' }}" class="card-img-top" alt="{{ $product->name }}"
@@ -184,6 +194,52 @@
                 @endif
             </div>
         </div>
+        <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+
+                    <!-- Encabezado del modal -->
+                    <div class="modal-header border-0 bg-gradient text-white py-3 px-4">
+                        <h4 class="modal-title fw-bold" id="modalTitle"></h4>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Cerrar"></button>
+                    </div>
+
+                    <!-- Cuerpo -->
+                    <div class="modal-body p-0 bg-light">
+                        <div class="row g-0 align-items-stretch">
+
+                            <!-- Imagen -->
+                            <div class="col-md-6 d-flex align-items-center justify-content-center bg-white p-4">
+                                <img id="modalImage" class="img-fluid rounded-3 shadow-sm"
+                                    style="max-height: 450px; object-fit: cover;" alt="Producto">
+                            </div>
+
+                            <!-- Información -->
+                            <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
+                                <h3 class="fw-bold mb-3 text-dark" id="modalName"></h3>
+                                <p id="modalBrand" class="fw-semibold text-muted mb-1"></p>
+                                <p id="modalCategory" class="text-secondary small mb-2"></p>
+                                <p id="modalDescription" class="text-dark mb-3 lh-base"></p>
+
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <div>
+                                        <p id="modalPrice" class="fw-bold fs-3 text-primary mb-0"></p>
+                                        <p id="modalDiscount" class="text-danger small mb-0"></p>
+                                        <p id="modalStock" class="text-muted small mb-0"></p>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary btn-lg rounded-pill shadow-sm w-100 mt-3 fw-semibold">
+                                    Agregar al carrito
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     @else
         <div class="text-center text-muted mt-5">
             <p>No hay productos disponibles en este momento.</p>
@@ -199,6 +255,23 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showProductModal(name, image, brand, category, description, price, discount, stock) {
+            // Rellenar contenido dinámico
+            document.getElementById('modalTitle').textContent = name;
+            document.getElementById('modalImage').src = image;
+            document.getElementById('modalBrand').textContent = "Marca: " + brand;
+            document.getElementById('modalCategory').textContent = "Categoría: " + category;
+            document.getElementById('modalDescription').textContent = description;
+            document.getElementById('modalPrice').textContent = "$" + price + " COP";
+            document.getElementById('modalDiscount').textContent = discount > 0 ? "Descuento: -" + discount + "%" : "";
+            document.getElementById('modalStock').textContent = "Disponibles: " + stock + " unidades";
+
+            // Mostrar el modal con Bootstrap
+            const modal = new bootstrap.Modal(document.getElementById('productModal'));
+            modal.show();
+        }
+    </script>
 </body>
 
 </html>
