@@ -15,8 +15,7 @@ class ProductController extends Controller
     {
         $products = Product::where('is_active', true)
             ->orderBy('created_at', 'desc')
-            ->take(12)
-            ->get();
+            ->paginate(12);
 
         return view('dashboard', compact('products'));
     }
@@ -26,7 +25,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('created_at', 'desc')->get();
+        $products = Product::orderBy('created_at', 'desc')->paginate(15);
         return view('products.index', compact('products'));
     }
 
