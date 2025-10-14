@@ -13,7 +13,7 @@
 
     {{-- Navbar --}}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 py-3 shadow-sm">
-        <a class="navbar-brand fw-bold" href="#">Funkystep</a>
+        <a class="navbar-brand fw-bold" href="#">step</a>
 
         <div class="ms-auto d-flex align-items-center gap-3">
 
