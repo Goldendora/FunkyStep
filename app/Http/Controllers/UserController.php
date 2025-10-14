@@ -35,7 +35,7 @@ class UserController extends Controller
     }
 
     /**
-     * 🚫 Banear usuario (crear registro en usuarios_baneados)
+     * Banear usuario (crear registro en usuarios_baneados)
      */
     public function ban(Request $request, $id)
     {
@@ -79,4 +79,35 @@ class UserController extends Controller
 
         return back()->with('error', 'El usuario no tiene baneos activos.');
     }
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+
+        $validated = $request->validate([
+            'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'address' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:100',
+            'postal_code' => 'nullable|string|max:20',
+            'phone_number' => 'nullable|string|max:20',
+        ]);
+
+        // Si sube nueva foto
+        if ($request->hasFile('profile_photo')) {
+            $path = $request->file('profile_photo')->store('profile_photos', 'public');
+
+            // Eliminar la anterior si existe
+            if ($user->profile_photo && \Storage::disk('public')->exists($user->profile_photo)) {
+                \Storage::disk('public')->delete($user->profile_photo);
+            }
+
+            $validated['profile_photo'] = $path;
+        }
+
+        // Actualizar datos del usuario
+        $user->update($validated);
+
+        return back()->with('success', 'Perfil actualizado correctamente.');
+    }
+
+
 }

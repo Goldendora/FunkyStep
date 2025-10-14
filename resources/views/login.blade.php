@@ -45,8 +45,8 @@
             <a href="{{ route('register') }}">Crear cuenta</a>
             <a href="{{ route('password.request') }}">Olvidé mi contraseña</a>
         </div>
-        <div class="btn btn-outline-primary btn-sm mt-2">
-            <a href="{{ route('dashboard') }}">Continuar como invitado</a>
+        <div class="d-flex justify-content-center mt-3">
+            <a href="{{ route('dashboard') }}" class="btn btn-outline-primary btn-sm mt-2">Continuar como invitado </a>
         </div>
         
     </div>

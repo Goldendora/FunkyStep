@@ -1,0 +1,142 @@
+.profile-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #fff;
+}
+
+.cart-btn {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: red;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 7px;
+    font-size: 12px;
+}
+
+body {
+    background-color: #f8f9fa;
+    overflow-x: hidden;
+}
+
+.sidebar {
+    min-height: 100vh;
+    background-color: #212529;
+    color: #fff;
+    padding-top: 1.5rem;
+}
+
+.sidebar a {
+    color: #adb5bd;
+    text-decoration: none;
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: #495057;
+    color: #fff;
+}
+
+.navbar {
+    background-color: #212529;
+}
+
+.content-wrapper {
+    margin-left: 240px;
+    padding: 2rem;
+}
+
+@media (max-width: 992px) {
+    .content-wrapper {
+        margin-left: 0;
+    }
+}
+
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(123, 47, 247, 0.3);
+}
+
+.hover-card img {
+    transition: transform 0.4s ease;
+}
+
+.hover-card:hover img {
+    transform: scale(1.05);
+}
+
+.modal.fade .modal-dialog {
+    transform: scale(0.9);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.btn-gradient {
+    background: linear-gradient(90deg, #7b2ff7, #f107a3, #2575fc);
+    background-size: 300% 300%;
+    color: #fff;
+    border: none;
+    transition: all 0.4s ease;
+    animation: gradientMove 6s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.btn-gradient:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(123, 47, 247, 0.4);
+}
+
+#password-rules {
+    margin-top: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+#password-rules li {
+    margin-bottom: 4px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#password-rules li.text-success {
+    color: #28a745 !important;
+    transform: translateX(5px);
+}
+
+#password-rules li.text-danger {
+    color: #dc3545 !important;
+}

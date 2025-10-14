@@ -32,7 +32,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate(); // regenerar sesión
 
-            // 🧱 Verificación de baneo antes de permitir acceso
+            //  Verificación de baneo antes de permitir acceso
             $user = Auth::user();
 
             // Buscar si existe un baneo activo
@@ -53,7 +53,7 @@ class AuthController extends Controller
                 }
             }
 
-            // 🔐 Generar nuevo código 2FA en cada inicio de sesión
+            // generar nuevo código 2FA en cada inicio de sesión
             $user->two_factor_code = rand(100000, 999999);
             $user->two_factor_expires_at = now()->addMinutes(10);
             $user->save();
@@ -107,7 +107,13 @@ class AuthController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:4', 'confirmed'],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed',
+                'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).+$/'
+            ],
         ]);
 
         // Crear el usuario
