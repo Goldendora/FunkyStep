@@ -76,38 +76,39 @@
 
             <div class="ms-auto d-flex align-items-center gap-3">
                 @auth
-                    {{-- Menú usuario --}}
-                    <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
-                            id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ Auth::user()->profile_photo
-                                ? asset('storage/' . Auth::user()->profile_photo)
-                                : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}"
-                                alt="Foto de perfil" class="profile-img me-2">
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
-                            <li class="dropdown-item text-center">
-                                <strong>{{ Auth::user()->name }}</strong>
-                                <p class="text-muted mb-0 small">{{ Auth::user()->email }}</p>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <button type="button"
-                                    class="dropdown-item text-center btn btn-outline-primary btn-sm w-100"
-                                    data-bs-toggle="modal" data-bs-target="#photoModal">
-                                    Editar perfil
-                                </button>
-                            </li>
-                            <li>
-                                <form action="{{ route('logout') }}" method="POST" class="text-center">
-                                    @csrf
-                                    <button type="submit" class="btn btn-outline-danger btn-sm w-100 mt-1">
-                                        Cerrar sesión
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
+                            {{-- Menú usuario --}}
+                            <div class="dropdown">
+                                <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userMenu"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="{{ Auth::user()->profile_photo
+                    ? asset('storage/' . Auth::user()->profile_photo)
+                    : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}" alt="Foto de perfil"
+                                        class="profile-img me-2">
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
+                                    <li class="dropdown-item text-center">
+                                        <strong>{{ Auth::user()->name }}</strong>
+                                        <p class="text-muted mb-0 small">{{ Auth::user()->email }}</p>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <button type="button" class="dropdown-item text-center btn btn-outline-primary btn-sm w-100"
+                                            data-bs-toggle="modal" data-bs-target="#photoModal">
+                                            Editar perfil
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <form action="{{ route('logout') }}" method="POST" class="text-center">
+                                            @csrf
+                                            <button type="submit" class="btn btn-outline-danger btn-sm w-100 mt-1">
+                                                Cerrar sesión
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
                 @else
                     <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">Iniciar sesión</a>
                     <a href="{{ route('register') }}" class="btn btn-outline-light btn-sm">Registrarse</a>
@@ -152,8 +153,8 @@
                                 <tr>
                                     <td class="text-start">
                                         <div class="d-flex align-items-center">
-                                            <img src="{{ asset('storage/' . $item->product->image) }}"
-                                                class="product-img me-3" alt="{{ $item->product->name }}">
+                                            <img src="{{ asset('storage/' . $item->product->image) }}" class="product-img me-3"
+                                                alt="{{ $item->product->name }}">
                                             <div>
                                                 <h6 class="fw-bold mb-0">{{ $item->product->name }}</h6>
                                                 <small class="text-muted">{{ $item->product->brand }}</small>
@@ -162,12 +163,11 @@
                                     </td>
                                     <td>${{ number_format($item->price, 2) }}</td>
                                     <td>
-                                        <form action="{{ route('cart.update', $item->id) }}" method="POST"
-                                            class="d-inline">
+                                        <form action="{{ route('cart.update', $item->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('PUT')
-                                            <input type="number" name="quantity" value="{{ $item->quantity }}"
-                                                min="1" class="form-control d-inline w-50 text-center">
+                                            <input type="number" name="quantity" value="{{ $item->quantity }}" min="1"
+                                                class="form-control d-inline w-50 text-center">
                                             <button class="btn btn-sm btn-outline-primary mt-2">Actualizar</button>
                                         </form>
                                     </td>
@@ -202,7 +202,10 @@
                         <div class="p-3 bg-light rounded">
                             <h5 class="mb-2">Total a pagar:</h5>
                             <h3 class="fw-bold text-success">${{ number_format($total, 2) }}</h3>
-                            <a href="#" class="btn btn-checkout w-100 mt-3">Proceder al pago 💳</a>
+                            <a href="{{ route('checkout') }}" class="btn btn-checkout w-100 mt-3">
+                                Proceder al pago 
+                            </a>
+
                         </div>
                     </div>
                 </div>
@@ -210,9 +213,9 @@
         </div>
     </div>
 
-<div class="d-flex justify-content-end mt-3 me-4">
-    <a href="{{ route('dashboard') }}" class="btn btn-secondary">Volver al Dashboard</a>
-</div>
+    <div class="d-flex justify-content-end mt-3 me-4">
+        <a href="{{ route('dashboard') }}" class="btn btn-secondary">Volver al Dashboard</a>
+    </div>
 
 
     <footer class="text-center small mt-5 mb-3 text-muted">

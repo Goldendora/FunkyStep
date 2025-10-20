@@ -8,6 +8,8 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentWebhookController;
 
 
 
@@ -49,6 +51,8 @@ Route::get('/dashboard', [ProductController::class, 'showPublic'])->name('dashbo
 Route::get('/', function () {
     return redirect()->route('dashboard');
 });
+
+Route::post('/stripe/webhook', [PaymentWebhookController::class, 'handle'])->name('stripe.webhook');
 
 // -------------------------------------------------------------
 // RUTAS PROTEGIDAS (solo usuarios autenticados y no baneados)
@@ -99,5 +103,13 @@ Route::middleware(['auth', 'baneo'])->group(function () {
     Route::put('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+
+    // Checkout: resumen y pago
+    Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+    Route::post('/checkout/pay', [OrderController::class, 'createStripeSession'])->name('checkout.pay');
+
+    // Éxito de pago (vista simple)
+    Route::get('/checkout/success', [OrderController::class, 'success'])->name('checkout.success');
 });
+
 
