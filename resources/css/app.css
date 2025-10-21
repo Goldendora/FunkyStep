@@ -1,11 +1,49 @@
-@import 'tailwindcss';
+/* === Bootstrap core === */
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+@import "aos/dist/aos.css";
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+/* === Estilos personalizados Funkystep === */
+:root {
+    --primary: #6c63ff;
+    --secondary: #ffbb33;
+    --light: #f9fafb;
+    --dark: #1a1a1a;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+.navbar {
+    background-color: var(--primary);
+}
+
+.btn-funky {
+    background-color: var(--primary);
+    color: white;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-funky:hover {
+    background-color: #5b55e4;
+}
+
+.card-funky {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease-in-out;
+}
+
+.card-funky:hover {
+    transform: scale(1.02);
+}
+
+html {
+  zoom: 0.75; /* reduce todo al 90% */
 }
