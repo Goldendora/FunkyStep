@@ -1,13 +1,10 @@
-import './bootstrap';
-// Importa estilos y JS de Bootstrap
+// === Bootstrap con Popper incluido ===
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-// Importa AOS (animaciones al hacer scroll)
+// === AOS (opcional para animaciones suaves) ===
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
-// Inicializa AOS
 AOS.init();
 
-// Importa CSS personalizado
+// === Importa tus estilos personalizados ===
 import '../css/app.css';

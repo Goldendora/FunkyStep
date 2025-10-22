@@ -5,107 +5,218 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Funkystep</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    @vite(['resources/css/style.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
+
 </head>
 
 <body class="bg-light">
 
     {{-- Navbar --}}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 py-3 shadow-sm">
-        <a class="navbar-brand fw-bold" href="#">Funkystep</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 py-3 shadow-sm fixed-top">
+        <div class="container-fluid">
 
-        <div class="ms-auto d-flex align-items-center gap-3">
+            {{-- LOGO --}}
+            <a class="navbar-brand fw-bold text-uppercase" href="{{ route('dashboard') }}">Funkystep</a>
 
-            @if(Auth::check())
-                    {{-- Botón del carrito --}}
-                    <div class="cart-btn me-3">
-                        <a href="{{ route('cart.index') }}" class="btn btn-outline-light position-relative">
-                            Carrito
-                            @php
-                                $cartCount = \App\Models\CartItem::where('user_id', Auth::id())->count();
-                            @endphp
-                            @if($cartCount > 0)
-                                <span class="cart-count">{{ $cartCount }}</span>
-                            @endif
-                        </a>
-                    </div>
+            {{-- Contenido del Navbar --}}
+            <div class="collapse navbar-collapse" id="navbarFunky">
+                {{-- Menú central --}}
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-5">
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold btn-funky" href="{{ route('dashboard') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold btn-funky" href="#collection">Collection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold btn-funky" href="#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold btn-funky" href="#contact">Contact</a>
+                    </li>
 
-                    {{-- Menú de usuario con foto --}}
-                    <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userMenu"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ Auth::user()->profile_photo
-                ? asset('storage/' . Auth::user()->profile_photo)
-                : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}" alt="Foto de perfil"
-                                class="profile-img me-2">
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
-                            <li class="dropdown-item text-center">
-                                <strong>{{ Auth::user()->name }}</strong>
-                                <p class="text-muted mb-0 small">{{ Auth::user()->email }}</p>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <button type="button" class="dropdown-item text-center btn btn-outline-primary btn-sm w-100"
-                                    data-bs-toggle="modal" data-bs-target="#photoModal">
-                                    Editar perfil
-                                </button>
-                            </li>
-                            <li>
-                                <form action="{{ route('logout') }}" method="POST" class="text-center">
-                                    @csrf
-                                    <button type="submit" class="btn btn-outline-danger btn-sm w-100 mt-1">
-                                        Cerrar sesión
+                    @if(Auth::check() && Auth::user()->role === 'admin')
+                        <li class="nav-item">
+                            <a href="{{ route('users.index') }}" class="nav-link fw-semibold btn-funky">
+                                Panel administrativo
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+
+                {{-- Menú derecho --}}
+                <div class="d-flex align-items-center gap-3">
+
+                    @if(Auth::check())
+                        {{-- 🛒 Carrito --}}
+                        <div class="cart-btn me-2">
+                            <a href="{{ route('cart.index') }}" id="btnCarrito"
+                                class="btn btn-funky position-relative d-flex align-items-center justify-content-center"
+                                style="width:42px; height:38px;">
+                                <i class="bi bi-bag fs-5"></i>
+                                @php
+                                    $cartCount = \App\Models\CartItem::where('user_id', Auth::id())->count();
+                                @endphp
+                                @if($cartCount > 0)
+                                    <span
+                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
+                                        {{ $cartCount }}
+                                    </span>
+                                @endif
+                            </a>
+                        </div>
+
+                        {{-- 👤 Menú de usuario --}}
+                        <div class="dropdown">
+                            <a href="#" class="d-flex align-items-center text-decoration-none btn-funky" id="userMenu"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+
+                                @if(Auth::user()->profile_photo)
+                                    {{-- 🧑‍🦱 Usuario con foto --}}
+                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="Foto de perfil"
+                                        class="rounded-circle me-2" style="width:38px;height:38px;object-fit:cover;">
+                                @else
+                                    {{-- 👤 Usuario sin foto (mostrar icono igual al invitado) --}}
+                                    <div class="d-flex justify-content-center align-items-center rounded-circle bg-secondary me-2"
+                                        style="width: 38px; height: 38px;">
+                                        <i class="bi bi-person text-white fs-5"></i>
+                                    </div>
+                                @endif
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end " aria-labelledby="userMenu">
+                                <li class="dropdown-item text-center">
+                                    <strong>{{ Auth::user()->name }}</strong>
+                                    <p class="mb-0 small">{{ Auth::user()->email }}</p>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <button type="button" class="btn-funky btn btn-sm w-100" data-bs-toggle="modal"
+                                        data-bs-target="#photoModal">
+                                        Editar perfil
                                     </button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-            @else
-                {{-- Si no está logueado --}}
-                <a href="{{ route('register') }}" class="btn btn-outline-light btn-sm">Registrarse</a>
-                <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">Iniciar sesión</a>
-            @endif
+                                </li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST" class="text-center">
+                                        @csrf
+                                        <button type="submit" class="btn btn-outline-danger btn-sm w-100 mt-1">
+                                            Cerrar sesión
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    @else
+                        {{-- Invitado --}}
+                        <div class="dropdown">
+                            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                                id="guestMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="d-flex justify-content-center align-items-center rounded-circle bg-secondary"
+                                    style="width: 40px; height: 40px;">
+                                    <i class="bi bi-person text-white fs-5"></i>
+                                </div>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="guestMenu">
+                                <li>
+                                    <a href="{{ route('register') }}" class="dropdown-item d-flex align-items-center gap-2">
+                                        <i class="bi bi-person-plus"></i> Registrarse
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('login') }}" class="dropdown-item d-flex align-items-center gap-2">
+                                        <i class="bi bi-box-arrow-in-right"></i> Iniciar sesión
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    @endif
+                </div>
+            </div>
         </div>
     </nav>
-
     {{-- Contenido principal --}}
-    <div class="container mt-5">
-        <div class="card shadow-lg p-5 border-0">
-            <div class="text-center mb-4">
-                <h2 class="fw-bold">
-                    Bienvenido
-                    @if(Auth::check())
-                        {{ Auth::user()->name }}
-                    @else
-                        visitante
-                    @endif
-                </h2>
-                <p class="text-muted">Explora Funkystep y disfruta de tu experiencia.</p>
-            </div>
-
-            @if(Auth::check())
-                <p class="text-center fs-5">Has iniciado sesión correctamente</p>
-            @else
-                <p class="text-center fs-5">Regístrate o inicia sesión para acceder a todas las funciones.</p>
-            @endif
-
-            @if(Auth::check() && Auth::user()->role === 'admin')
-                <div class="text-center mt-4">
-                    <a href="{{ route('users.index') }}" class="btn btn-primary px-4 py-2">
-                        Panel administrativo
+    <main class="hero">
+        <div class="container-fluid px-5 hero-grid">
+            <section aria-labelledby="hero-title">
+                <p class="tag">NIKE AIR MAX 90</p>
+                <h1 id="hero-title" class="title">AIR MAX</h1>
+                <h2 class="subtitle">NIKE AIR MAX 90</h2>
+                <p class="price">$160.000</p>
+                <p class="desc">
+                    Nothing as fly, nothing as comfortable, nothing as proven — the NIKE AIR MAX 90 stays true to
+                    sport
+                    with the iconic Waffle sole, stitched overlays and classic TPU accents.
+                </p>
+                @auth
+                    <form action="{{ route('cart.add', 22) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="cta d-inline-flex align-items-center gap-2">
+                            AGREGAR AL CARRITO
+                        </button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="cta d-inline-flex align-items-center gap-2 text-decoration-none">
+                        INICIAR SESIÓN PARA COMPRAR
                     </a>
-                </div>
-            @endif
+                @endauth
+                </form>
+            </section>
+
+            <section class="visual" aria-label="Vista del producto">
+                <img src="{{ Vite::asset('public\images\ofer\image.png') }}"
+                    alt="Zapatilla Nike Air Max 90 en gris y negro" />
+
+                {{-- Burbujas decorativas --}}
+                <div class="bubble-wrap b1"><span class="bubble" aria-hidden="true"></span></div>
+                <div class="bubble-wrap b2"><span class="bubble" aria-hidden="true"></span></div>
+                <div class="bubble-wrap b3"><span class="bubble" aria-hidden="true"></span></div>
+                <div class="bubble-wrap b4"><span class="bubble" aria-hidden="true"></span></div>
+                <div class="bubble-wrap b5"><span class="bubble" aria-hidden="true"></span></div>
+                <div class="bubble-wrap b6"><span class="bubble" aria-hidden="true"></span></div>
+            </section>
+
+
+            <section class="visual2-wrap" aria-label="Vista del producto">
+                <img id="visual2"src="{{ Vite::asset('public\images\decoration\image2.png') }}"
+                    alt="Zapatilla Nike Air Max 90 en gris y negro" class="visual2" />
+
+            </section>
+            <section aria-labelledby="hero-title">
+                <p class="tag">NIKE AIR MAX 90</p>
+                <h1 id="hero-title" class="title">AIR MAX</h1>
+                <h2 class="subtitle">NIKE AIR MAX 90</h2>
+                <p class="price">$160.000</p>
+                <p class="desc">
+                    Nothing as fly, nothing as comfortable, nothing as proven — the NIKE AIR MAX 90 stays true to
+                    sport
+                    with the iconic Waffle sole, stitched overlays and classic TPU accents.
+                </p>
+                @auth
+                    <form action="{{ route('cart.add', 22) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="cta d-inline-flex align-items-center gap-2">
+                            AGREGAR AL CARRITO
+                        </button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="cta d-inline-flex align-items-center gap-2 text-decoration-none">
+                        INICIAR SESIÓN PARA COMPRAR
+                    </a>
+                @endauth
+                </form>
+            </section>
         </div>
-    </div>
+    </main>
 
     {{-- Catálogo público de productos --}}
     @if(isset($products) && count($products) > 0)
-        <div class="container mt-5">
+        <div class="container-fluid px-5 mt-5">
             <h3 class="fw-bold text-center mb-4">Catálogo de Zapatillas</h3>
             <div class="row g-4">
                 @foreach($products as $product)
@@ -115,15 +226,15 @@
                     ? asset('storage/' . $product->image)
                     : 'https://via.placeholder.com/300' }}" class="card-img-top" alt="{{ $product->name }}"
                                 style="height: 250px; object-fit: cover;" onclick="showProductModal(
-                                                                    '{{ $product->name }}',
-                                                                    '{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/600' }}',
-                                                                    '{{ $product->brand }}',
-                                                                    '{{ $product->category }}',
-                                                                    '{{ $product->description }}',
-                                                                    '{{ number_format($product->price - ($product->price * ($product->discount / 100)), 0, ',', '.') }}',
-                                                                    '{{ $product->discount }}',
-                                                                    '{{ $product->stock }}'
-                                                                )">
+                                                                                                    '{{ $product->name }}',
+                                                                                                    '{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/600' }}',
+                                                                                                    '{{ $product->brand }}',
+                                                                                                    '{{ $product->category }}',
+                                                                                                    '{{ $product->description }}',
+                                                                                                    '{{ number_format($product->price - ($product->price * ($product->discount / 100)), 0, ',', '.') }}',
+                                                                                                    '{{ $product->discount }}',
+                                                                                                    '{{ $product->stock }}'
+                                                                                                    )">
 
                             <div class="card-body text-center">
                                 <h5 class="card-title fw-bold">{{ $product->name }}</h5>
@@ -242,8 +353,23 @@
     <footer class="text-center small mt-5 mb-3 text-muted">
         © {{ date('Y') }} Funkystep. Todos los derechos reservados.
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const img = document.getElementById('visual2');
+            const images = [
+                "{{ Vite::asset('public/images/decoration/image3.png') }}",
+                "{{ Vite::asset('public/images/decoration/image2.png') }}",
+                "{{ Vite::asset('public/images/decoration/image4.png') }}",
+            ];
+            let index = 0;
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+            setInterval(() => {
+                index = (index + 1) % images.length;
+                img.src = images[index];
+            }, 4000); // cambia cada 4 segundos
+        });
+    </script>
+
     <script>
         function showProductModal(name, image, brand, category, description, price, discount, stock) {
             // Rellenar contenido dinámico
@@ -261,6 +387,61 @@
             modal.show();
         }
     </script>
+    <script>
+        // Función para hacer un elemento arrastrable
+        function hacerArrastrable(el) {
+            let offsetX = 0, offsetY = 0, arrastrando = false;
+
+            el.addEventListener("mousedown", (e) => {
+                arrastrando = true;
+                offsetX = e.clientX - el.offsetLeft;
+                offsetY = e.clientY - el.offsetTop;
+                el.style.cursor = "grabbing";
+            });
+
+            document.addEventListener("mousemove", (e) => {
+                if (arrastrando) {
+                    el.style.left = (e.clientX - offsetX) + "px";
+                    el.style.top = (e.clientY - offsetY) + "px";
+                }
+            });
+
+            document.addEventListener("mouseup", () => {
+                arrastrando = false;
+                el.style.cursor = "grab";
+            });
+
+            // Estilo inicial
+            el.style.position = "absolute";
+            el.style.cursor = "grab";
+        }
+
+        // Seleccionar todas las burbujas y hacerlas arrastrables
+        document.querySelectorAll(".bubble-wrap").forEach(b => hacerArrastrable(b));
+    </script>
+</body>
+<svg style="display: none">
+    <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+        <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" seed="5" result="turbulence" />
+
+        <feComponentTransfer in="turbulence" result="mapped">
+            <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
+            <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
+            <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
+        </feComponentTransfer>
+
+        <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
+
+        <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100"
+            lighting-color="white" result="specLight">
+            <fePointLight x="-200" y="-200" z="300" />
+        </feSpecularLighting>
+
+        <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage" />
+
+        <feDisplacementMap in="SourceGraphic" in2="softMap" scale="150" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+</svg>
 </body>
 
 </html>
