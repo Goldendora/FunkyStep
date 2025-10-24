@@ -71,15 +71,15 @@
                         <div class="dropdown">
                             <a href="#" class="d-flex align-items-center text-decoration-none btn-funky dropdown-toggle"
                                 id="userMenu" data-bs-toggle="dropdown" aria-expanded="false" role="button">
-                            @if(Auth::user()->profile_photo)
-                                <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="Foto de perfil"
-                                    class="rounded-circle me-2" style="width:38px;height:38px;object-fit:cover;">
-                            @else
-                                <div class="d-flex justify-content-center align-items-center rounded-circle bg-secondary me-2"
-                                    style="width: 38px; height: 38px;">
-                                    <i class="bi bi-person text-white fs-5"></i>
-                                </div>
-                            @endif
+                                @if(Auth::user()->profile_photo)
+                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="Foto de perfil"
+                                        class="rounded-circle me-2" style="width:38px;height:38px;object-fit:cover;">
+                                @else
+                                    <div class="d-flex justify-content-center align-items-center rounded-circle bg-secondary me-2"
+                                        style="width: 38px; height: 38px;">
+                                        <i class="bi bi-person text-white fs-5"></i>
+                                    </div>
+                                @endif
                             </a>
 
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
@@ -183,73 +183,68 @@
                 <img id="visual2" src="{{ Vite::asset('public/images/decoration/image1.png') }}"
                     alt="Zapatilla Nike Air Max 90 en gris y negro" class="visual2" />
             </section>
+            <section class="visual2-wrap" aria-label="Vista del producto">
+                <img src="{{ Vite::asset('public/images/decoration/Baner2.jpg') }}"
+                    alt="Zapatilla Nike Air Max 90 en gris y negro" class="visual2" />
+            </section>
         </div>
     </main>
 
     {{-- Catálogo público de productos --}}
     @if(isset($products) && count($products) > 0)
         <div class="container-fluid px-5 mt-5">
-            <h3 class="fw-bold text-center mb-4">Catálogo de Zapatillas</h3>
-            <div class="row g-4">
+            <div class="content textoblanco">
+                <h1 class="title">
+                    Estos son nuestros productos mas vendidos
+                    <div class="aurora">
+                        <div class="aurora__item"></div>
+                        <div class="aurora__item"></div>
+                        <div class="aurora__item"></div>
+                        <div class="aurora__item"></div>
+                    </div>
+                </h1>
+                <p class="subtitle">Si lo piensas, lo encuentras en FunkyStep</p>
+            </div>
+            <div class="catalogo">
                 @foreach($products as $product)
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card h-100 shadow-sm border-0" style="cursor: pointer;">
-                            <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/300' }}"
-                                class="card-img-top" alt="{{ $product->name }}" style="height: 250px; object-fit: cover;"
-                                onclick="showProductModal(
-                                                    '{{ $product->name }}',
-                                                    '{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/600' }}',
-                                                    '{{ $product->brand }}',
-                                                    '{{ $product->category }}',
-                                                    '{{ $product->description }}',
-                                                    '{{ number_format($product->price - ($product->price * ($product->discount / 100)), 0, ',', '.') }}',
-                                                    '{{ $product->discount }}',
-                                                    '{{ $product->stock }}'
-                                                 )">
+                    <div class="product">
+                        <span class="product__price">
+                            ${{ number_format($product->price - ($product->price * ($product->discount / 100)), 0, ',', '.') }}
+                        </span>
 
-                            <div class="card-body text-center">
-                                <h5 class="card-title fw-bold">{{ $product->name }}</h5>
-                                <p class="text-muted small mb-1">{{ $product->brand }}</p>
-                                <p class="fw-bold text-success mb-1">
-                                    ${{ number_format($product->price - ($product->price * ($product->discount / 100)), 2) }}
-                                </p>
+                        <img class="product__image"
+                            src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/400' }}"
+                            alt="{{ $product->name }}">
 
-                                @if($product->discount > 0)
-                                    <p class="text-danger small mb-2">
-                                        <del>${{ number_format($product->price, 2) }}</del> -{{ $product->discount }}%
-                                    </p>
-                                @endif
+                        <span class="product__category">{{ $product->brand }}</span>
+                        <h1 class="product__title">{{ $product->name }}</h1>
+                        <hr>
 
-                                @if($product->stock > 0)
-                                    @auth
-                                        <form action="{{ route('cart.add', $product->id) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-outline-primary btn-sm w-100">
-                                                Agregar al carrito
-                                            </button>
-                                        </form>
-                                    @else
-                                        <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm w-100">
-                                            Inicia sesión para comprar
-                                        </a>
-                                    @endauth
-                                @else
-                                    <button class="btn btn-secondary btn-sm w-100" disabled>Agotado</button>
-                                @endif
-                            </div>
-                        </div>
+                        <p class="desc">{{ Str::limit($product->description, 120) }}</p>
+
+                        @if($product->stock > 0)
+                            @auth
+                                <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="product__btn">Agregar</button>
+                                </form>
+                            @else
+                                <a href="{{ route('login') }}" class="product__btn">Login</a>
+                            @endauth
+                        @else
+                            <button class="product__btn" disabled>Agotado</button>
+                        @endif
                     </div>
                 @endforeach
-
-                {{-- Paginador --}}
-                @if ($products->hasPages())
-                    <div class="mt-5 d-flex justify-content-center">
-                        {{ $products->onEachSide(1)->links('pagination::bootstrap-5') }}
-                    </div>
-                @endif
             </div>
-        </div>
 
+            {{-- Paginador --}}
+            @if ($products->hasPages())
+                <div class="mt-5 d-flex justify-content-center">
+                    {{ $products->onEachSide(1)->links('pagination::funkystep') }}
+                </div>
+            @endif
+        </div>
         {{-- Modal de producto (se mantiene dentro del archivo) --}}
         <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -318,7 +313,7 @@
         @include('partials.profile-modal')
     @endif
 
-    <footer class="text-center small mt-5 mb-3 text-muted bg-light">
+    <footer class="text-center small mt-5 mb-3 textoblanco">
         © {{ date('Y') }} Funkystep. Todos los derechos reservados.
     </footer>
 
