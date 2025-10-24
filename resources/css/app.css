@@ -3,7 +3,7 @@
 @import "bootstrap-icons/font/bootstrap-icons.css";
 @import "aos/dist/aos.css";
 
-/* === Estilos personalizados Funkystep === */
+/* === Variables globales Funkystep === */
 :root {
     --primary: #530303;
     --secondary: #3c26b6;
@@ -12,20 +12,9 @@
     --dark: #1a1a1a63;
 }
 
-.dropdown-menu {
-    background-color: var(--boton);
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.514);
-    top: 150% !important;
-}
-
-.btn-outline-danger {
-    color: var(--light);
-}
-
-
-.dropdown-item {
-    color: var(--light);
+/* === General === */
+html {
+    zoom: 0.75;
 }
 
 body {
@@ -35,30 +24,50 @@ body {
     user-select: none;
 }
 
+.h2 {
+    color: #000;
+}
+
+/* === Navbar === */
 .navbar {
     background-color: var(--primary);
 }
 
-.secondary {
-    background-color: var(--secondary);
-    color: rgb(255, 255, 255);
+.dropdown-menu {
+    background-color: var(--boton);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
+.navbar .dropdown-menu {
+  margin-top: 1.3rem; /* solo separación visual */
+  position: absolute; /* deja que Popper calcule */
+  z-index: 1055;      /* sobre el navbar */
+}
+
+.dropdown-item {
+    color: var(--light);
+}
+
+.btn-outline-danger {
+    color: var(--light);
+}
+
+/* === Botones === */
 .btn-funky {
-    color: rgb(255, 255, 255);
+    color: #fff;
     border-radius: 12px;
     font-weight: 600;
     transition: all 0.3s ease;
-    transform: scale(1);
 }
 
 .btn-funky:hover {
     transform: scale(1.08);
-    /* Agranda suavemente el botón */
     color: var(--secondary);
     text-decoration-color: var(--secondary);
 }
 
+/* === Tarjetas === */
 .card-funky {
     border: none;
     border-radius: 16px;
@@ -70,18 +79,10 @@ body {
     transform: scale(1.02);
 }
 
-html {
-    zoom: 0.75;
-    /* reduce todo al 90% */
-}
-
-.h2 {
-    color: rgb(0, 0, 0);
-}
-
+/* === Hero principal === */
 .hero {
     position: relative;
-    color: var(--text, #fff);
+    color: #fff;
     font-family: "Funnel Display", sans-serif, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     overflow: hidden;
     background-repeat: no-repeat;
@@ -100,40 +101,40 @@ html {
 }
 
 .hero .tag {
-    font-size: clamp(.7rem, .9vw, .9rem);
-    letter-spacing: .35em;
+    font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+    letter-spacing: 0.35em;
     color: #c9c9c9;
     margin-bottom: 8px;
 }
 
 .hero .title {
     font-size: clamp(3rem, 12vw, 10rem);
-    line-height: .9;
+    line-height: 0.9;
     font-weight: 900;
-    letter-spacing: .02em;
-    margin: 0 0 8px 0;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
 }
 
 .hero .subtitle {
     font-size: clamp(1rem, 2vw, 1.25rem);
-    letter-spacing: .4em;
+    letter-spacing: 0.4em;
     font-weight: 700;
     color: #c9c9c9;
-    margin: 0 0 20px 0;
+    margin-bottom: 20px;
 }
 
 .hero .price {
     font-size: clamp(1.6rem, 3vw, 2.2rem);
     font-weight: 800;
-    margin: 0 0 22px 0;
+    margin-bottom: 22px;
 }
 
 .hero .desc {
     max-width: 48ch;
     color: #c9c9c9;
-    font-size: .95rem;
+    font-size: 0.95rem;
     line-height: 1.7;
-    margin: 0 0 36px 0;
+    margin-bottom: 36px;
 }
 
 .hero .cta {
@@ -144,19 +145,20 @@ html {
     background: rgba(5, 3, 3, 0.58);
     color: #fff;
     font-weight: 800;
-    letter-spacing: .05em;
+    letter-spacing: 0.05em;
     cursor: pointer;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .25), inset 0 1px rgba(255, 255, 255, .2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25),
+                inset 0 1px rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
 }
 
 .hero .cta:hover {
     transform: translateY(-2px) scale(1.05);
     color: var(--secondary);
-    background: rgb(255, 255, 255);
+    background: #fff;
 }
 
-/* Imagen lateral */
+/* === Visual principal === */
 .visual {
     position: relative;
     display: flex;
@@ -167,21 +169,25 @@ html {
 .visual img {
     width: 90%;
     height: auto;
-    filter: drop-shadow(0 40px 60px rgba(0, 0, 0, .6));
+    filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.6));
     transform: rotate(-8deg);
-    right: 900px;
 }
 
+/* === Imagen decorativa secundaria === */
 .visual2-wrap {
     position: relative;
     overflow: hidden;
     border-radius: 10px;
-    width: 75%;
-    height: 800px;
+    width: 90%;
+    max-width: 900px;
+    height: 1000px;
+    flex-shrink: 0;
+    justify-self: center;
+    align-self: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    filter: drop-shadow(0 20px 20px rgba(0, 0, 0, .6));
+    filter: drop-shadow(0 20px 20px rgba(0, 0, 0, 0.6));
 }
 
 .visual2 {
@@ -195,7 +201,16 @@ html {
     transform: scale(1.05);
 }
 
-/* Burbujas decorativas */
+#visual2 {
+    transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+#visual2.slide {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+/* === Burbujas decorativas === */
 .bubble-wrap {
     position: absolute;
     border-radius: 50%;
@@ -214,70 +229,56 @@ html {
 }
 
 @keyframes float {
-    0% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-20px);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
 }
 
-.b1 {
-    width: 122px;
-    height: 120px;
-    left: 20%;
-    top: 40%;
-    animation: float 1s infinite ease;
-    z-index: -1;
+/* Burbujas individuales */
+.b1 { width: 122px; height: 120px; left: 20%; top: 40%; animation: float 1s infinite ease; z-index: -1; }
+.b2 { width: 280px; height: 280px; right: -100px; top: 1%; animation: float 2.3s infinite ease; }
+.b3 { width: 230px; height: 230px; right: 6%; top: 60%; animation: float 1.5s infinite ease; }
+.b4 { width: 260px; height: 260px; left: 5%; bottom: 6%; animation: float 1.3s infinite ease; }
+.b5 { width: 192px; height: 190px; left: 0%; top: 20%; animation: float 2s infinite ease; }
+.b6 { width: 332px; height: 330px; left: 40%; top: 23%; animation: float 2s infinite ease; z-index: -1; }
+
+/* === Texto animado === */
+.cursor {
+    display: inline-block;
+    overflow: hidden;
+    border-right: 2px solid #fff;
+    white-space: nowrap;
 }
 
-.b2 {
-    width: 280px;
-    height: 280px;
-    right: -100px;
-    top: 1%;
-    animation: float 2.3s infinite ease;
+.line1 {
+    animation:
+        typewriter1 4s steps(60) 0.5s 1 normal both,
+        blinkingCursor 500ms steps(50) infinite normal;
 }
 
-.b3 {
-    width: 230px;
-    height: 230px;
-    right: 6%;
-    top: 60%;
-    animation: float 1.5s infinite ease;
+.line2 {
+    width: 0;
+    animation:
+        typewriter2 5s steps(60) 4.8s 1 normal both,
+        blinkingCursor 500ms steps(50) infinite normal;
 }
 
-.b4 {
-    width: 260px;
-    height: 260px;
-    left: 5%;
-    bottom: 6%;
-    animation: float 1.3s infinite ease;
+@keyframes typewriter1 {
+    from { width: 0; }
+    to { width: 100%; }
 }
 
-.b5 {
-    width: 192px;
-    height: 190px;
-    left: 0%;
-    top: 20%;
-    animation: float 2s infinite ease;
+@keyframes typewriter2 {
+    from { width: 0; }
+    to { width: 100%; }
 }
 
-.b6 {
-    width: 332px;
-    height: 330px;
-    left: 40%;
-    top: 23%;
-    animation: float 2s infinite ease;
-    z-index: -1;
+@keyframes blinkingCursor {
+    from { border-right-color: rgba(255, 255, 255, 0); }
+    to { border-right-color: transparent; }
 }
 
-/* Responsive */
+/* === Responsive === */
 @media (max-width: 980px) {
     .hero-grid {
         grid-template-columns: 1fr;
@@ -289,20 +290,7 @@ html {
         margin-top: -10px;
     }
 
-    .b2 {
-        right: 10%;
-        top: 8%;
-        width: 300px;
-        height: 300px;
-    }
-
-    .b3 {
-        right: -6%;
-        top: 40%;
-    }
-
-    .b4 {
-        left: 50%;
-        bottom: -6%;
-    }
+    .b2 { right: 10%; top: 8%; width: 300px; height: 300px; }
+    .b3 { right: -6%; top: 40%; }
+    .b4 { left: 50%; bottom: -6%; }
 }

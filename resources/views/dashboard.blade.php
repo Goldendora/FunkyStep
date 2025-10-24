@@ -6,18 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Funkystep</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <!-- Fuente principal -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
-
 </head>
 
 <body class="bg-light">
-
     {{-- Navbar --}}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 py-3 shadow-sm fixed-top">
         <div class="container-fluid">
-
             {{-- LOGO --}}
             <a class="navbar-brand fw-bold text-uppercase" href="{{ route('dashboard') }}">Funkystep</a>
 
@@ -49,7 +48,6 @@
 
                 {{-- Menú derecho --}}
                 <div class="d-flex align-items-center gap-3">
-
                     @if(Auth::check())
                         {{-- 🛒 Carrito --}}
                         <div class="cart-btn me-2">
@@ -71,23 +69,20 @@
 
                         {{-- 👤 Menú de usuario --}}
                         <div class="dropdown">
-                            <a href="#" class="d-flex align-items-center text-decoration-none btn-funky" id="userMenu"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-
-                                @if(Auth::user()->profile_photo)
-                                    {{-- 🧑‍🦱 Usuario con foto --}}
-                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="Foto de perfil"
-                                        class="rounded-circle me-2" style="width:38px;height:38px;object-fit:cover;">
-                                @else
-                                    {{-- 👤 Usuario sin foto (mostrar icono igual al invitado) --}}
-                                    <div class="d-flex justify-content-center align-items-center rounded-circle bg-secondary me-2"
-                                        style="width: 38px; height: 38px;">
-                                        <i class="bi bi-person text-white fs-5"></i>
-                                    </div>
-                                @endif
+                            <a href="#" class="d-flex align-items-center text-decoration-none btn-funky dropdown-toggle"
+                                id="userMenu" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+                            @if(Auth::user()->profile_photo)
+                                <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" alt="Foto de perfil"
+                                    class="rounded-circle me-2" style="width:38px;height:38px;object-fit:cover;">
+                            @else
+                                <div class="d-flex justify-content-center align-items-center rounded-circle bg-secondary me-2"
+                                    style="width: 38px; height: 38px;">
+                                    <i class="bi bi-person text-white fs-5"></i>
+                                </div>
+                            @endif
                             </a>
 
-                            <ul class="dropdown-menu dropdown-menu-end " aria-labelledby="userMenu">
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
                                 <li class="dropdown-item text-center">
                                     <strong>{{ Auth::user()->name }}</strong>
                                     <p class="mb-0 small">{{ Auth::user()->email }}</p>
@@ -140,19 +135,21 @@
             </div>
         </div>
     </nav>
+
     {{-- Contenido principal --}}
     <main class="hero">
         <div class="container-fluid px-5 hero-grid">
+            {{-- Texto principal --}}
             <section aria-labelledby="hero-title">
                 <p class="tag">NIKE AIR MAX 90</p>
                 <h1 id="hero-title" class="title">AIR MAX</h1>
                 <h2 class="subtitle">NIKE AIR MAX 90</h2>
                 <p class="price">$160.000</p>
                 <p class="desc">
-                    Nothing as fly, nothing as comfortable, nothing as proven — the NIKE AIR MAX 90 stays true to
-                    sport
-                    with the iconic Waffle sole, stitched overlays and classic TPU accents.
+                    <span class="cursor line1">Nothing as fly, nothing as comfortable, nothing as proven —</span>
+                    <span class="cursor line2">the NIKE AIR MAX 90 stays true to level.</span>
                 </p>
+
                 @auth
                     <form action="{{ route('cart.add', 22) }}" method="POST">
                         @csrf
@@ -165,14 +162,14 @@
                         INICIAR SESIÓN PARA COMPRAR
                     </a>
                 @endauth
-                </form>
             </section>
 
+            {{-- Imagen principal --}}
             <section class="visual" aria-label="Vista del producto">
-                <img src="{{ Vite::asset('public\images\ofer\image.png') }}"
+                <img src="{{ Vite::asset('public/images/ofer/image.png') }}"
                     alt="Zapatilla Nike Air Max 90 en gris y negro" />
 
-                {{-- Burbujas decorativas --}}
+                {{-- Burbujas decorativas (mantengo clases b1..b6) --}}
                 <div class="bubble-wrap b1"><span class="bubble" aria-hidden="true"></span></div>
                 <div class="bubble-wrap b2"><span class="bubble" aria-hidden="true"></span></div>
                 <div class="bubble-wrap b3"><span class="bubble" aria-hidden="true"></span></div>
@@ -181,35 +178,10 @@
                 <div class="bubble-wrap b6"><span class="bubble" aria-hidden="true"></span></div>
             </section>
 
-
+            {{-- Imagen decorativa secundaria --}}
             <section class="visual2-wrap" aria-label="Vista del producto">
-                <img id="visual2"src="{{ Vite::asset('public\images\decoration\image2.png') }}"
+                <img id="visual2" src="{{ Vite::asset('public/images/decoration/image1.png') }}"
                     alt="Zapatilla Nike Air Max 90 en gris y negro" class="visual2" />
-
-            </section>
-            <section aria-labelledby="hero-title">
-                <p class="tag">NIKE AIR MAX 90</p>
-                <h1 id="hero-title" class="title">AIR MAX</h1>
-                <h2 class="subtitle">NIKE AIR MAX 90</h2>
-                <p class="price">$160.000</p>
-                <p class="desc">
-                    Nothing as fly, nothing as comfortable, nothing as proven — the NIKE AIR MAX 90 stays true to
-                    sport
-                    with the iconic Waffle sole, stitched overlays and classic TPU accents.
-                </p>
-                @auth
-                    <form action="{{ route('cart.add', 22) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="cta d-inline-flex align-items-center gap-2">
-                            AGREGAR AL CARRITO
-                        </button>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}" class="cta d-inline-flex align-items-center gap-2 text-decoration-none">
-                        INICIAR SESIÓN PARA COMPRAR
-                    </a>
-                @endauth
-                </form>
             </section>
         </div>
     </main>
@@ -222,19 +194,18 @@
                 @foreach($products as $product)
                     <div class="col-md-3 col-sm-6">
                         <div class="card h-100 shadow-sm border-0" style="cursor: pointer;">
-                            <img src="{{ $product->image
-                    ? asset('storage/' . $product->image)
-                    : 'https://via.placeholder.com/300' }}" class="card-img-top" alt="{{ $product->name }}"
-                                style="height: 250px; object-fit: cover;" onclick="showProductModal(
-                                                                                                    '{{ $product->name }}',
-                                                                                                    '{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/600' }}',
-                                                                                                    '{{ $product->brand }}',
-                                                                                                    '{{ $product->category }}',
-                                                                                                    '{{ $product->description }}',
-                                                                                                    '{{ number_format($product->price - ($product->price * ($product->discount / 100)), 0, ',', '.') }}',
-                                                                                                    '{{ $product->discount }}',
-                                                                                                    '{{ $product->stock }}'
-                                                                                                    )">
+                            <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/300' }}"
+                                class="card-img-top" alt="{{ $product->name }}" style="height: 250px; object-fit: cover;"
+                                onclick="showProductModal(
+                                                    '{{ $product->name }}',
+                                                    '{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/600' }}',
+                                                    '{{ $product->brand }}',
+                                                    '{{ $product->category }}',
+                                                    '{{ $product->description }}',
+                                                    '{{ number_format($product->price - ($product->price * ($product->discount / 100)), 0, ',', '.') }}',
+                                                    '{{ $product->discount }}',
+                                                    '{{ $product->stock }}'
+                                                 )">
 
                             <div class="card-body text-center">
                                 <h5 class="card-title fw-bold">{{ $product->name }}</h5>
@@ -245,8 +216,7 @@
 
                                 @if($product->discount > 0)
                                     <p class="text-danger small mb-2">
-                                        <del>${{ number_format($product->price, 2) }}</del>
-                                        -{{ $product->discount }}%
+                                        <del>${{ number_format($product->price, 2) }}</del> -{{ $product->discount }}%
                                     </p>
                                 @endif
 
@@ -264,15 +234,14 @@
                                         </a>
                                     @endauth
                                 @else
-                                    <button class="btn btn-secondary btn-sm w-100" disabled>
-                                        Agotado
-                                    </button>
+                                    <button class="btn btn-secondary btn-sm w-100" disabled>Agotado</button>
                                 @endif
                             </div>
                         </div>
                     </div>
                 @endforeach
-                <!-- Paginador -->
+
+                {{-- Paginador --}}
                 @if ($products->hasPages())
                     <div class="mt-5 d-flex justify-content-center">
                         {{ $products->onEachSide(1)->links('pagination::bootstrap-5') }}
@@ -280,28 +249,28 @@
                 @endif
             </div>
         </div>
+
+        {{-- Modal de producto (se mantiene dentro del archivo) --}}
         <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
-
-                    <!-- Encabezado del modal -->
+                    {{-- Encabezado del modal --}}
                     <div class="modal-header border-0 bg-gradient text-white py-3 px-4">
                         <h4 class="modal-title fw-bold" id="modalTitle"></h4>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                             aria-label="Cerrar"></button>
                     </div>
 
-                    <!-- Cuerpo -->
+                    {{-- Cuerpo --}}
                     <div class="modal-body p-0 bg-light">
                         <div class="row g-0 align-items-stretch">
-
-                            <!-- Imagen -->
+                            {{-- Imagen --}}
                             <div class="col-md-6 d-flex align-items-center justify-content-center bg-white p-4">
                                 <img id="modalImage" class="img-fluid rounded-3 shadow-sm"
                                     style="max-height: 450px; object-fit: cover;" alt="Producto">
                             </div>
 
-                            <!-- Información -->
+                            {{-- Información --}}
                             <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
                                 <h3 class="fw-bold mb-3 text-dark" id="modalName"></h3>
                                 <p id="modalBrand" class="fw-semibold text-muted mb-1"></p>
@@ -315,6 +284,7 @@
                                         <p id="modalStock" class="text-muted small mb-0"></p>
                                     </div>
                                 </div>
+
                                 @if($product->stock > 0)
                                     @auth
                                         <form action="{{ route('cart.add', $product->id) }}" method="POST">
@@ -329,12 +299,9 @@
                                         </a>
                                     @endauth
                                 @else
-                                    <button class="btn btn-secondary btn-sm w-100" disabled>
-                                        Agotado
-                                    </button>
+                                    <button class="btn btn-secondary btn-sm w-100" disabled>Agotado</button>
                                 @endif
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -345,103 +312,34 @@
             <p>No hay productos disponibles en este momento.</p>
         </div>
     @endif
-    {{-- Modal de perfil --}}
+
+    {{-- Modal de perfil (se mantiene como include) --}}
     @if(Auth::check())
         @include('partials.profile-modal')
-
     @endif
-    <footer class="text-center small mt-5 mb-3 text-muted">
+
+    <footer class="text-center small mt-5 mb-3 text-muted bg-light">
         © {{ date('Y') }} Funkystep. Todos los derechos reservados.
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const img = document.getElementById('visual2');
-            const images = [
-                "{{ Vite::asset('public/images/decoration/image3.png') }}",
-                "{{ Vite::asset('public/images/decoration/image2.png') }}",
-                "{{ Vite::asset('public/images/decoration/image4.png') }}",
-            ];
-            let index = 0;
 
-            setInterval(() => {
-                index = (index + 1) % images.length;
-                img.src = images[index];
-            }, 4000); // cambia cada 4 segundos
-        });
-    </script>
-
-    <script>
-        function showProductModal(name, image, brand, category, description, price, discount, stock) {
-            // Rellenar contenido dinámico
-            document.getElementById('modalTitle').textContent = name;
-            document.getElementById('modalImage').src = image;
-            document.getElementById('modalBrand').textContent = "Marca: " + brand;
-            document.getElementById('modalCategory').textContent = "Categoría: " + category;
-            document.getElementById('modalDescription').textContent = description;
-            document.getElementById('modalPrice').textContent = "$" + price + " COP";
-            document.getElementById('modalDiscount').textContent = discount > 0 ? "Descuento: -" + discount + "%" : "";
-            document.getElementById('modalStock').textContent = "Disponibles: " + stock + " unidades";
-
-            // Mostrar el modal con Bootstrap
-            const modal = new bootstrap.Modal(document.getElementById('productModal'));
-            modal.show();
-        }
-    </script>
-    <script>
-        // Función para hacer un elemento arrastrable
-        function hacerArrastrable(el) {
-            let offsetX = 0, offsetY = 0, arrastrando = false;
-
-            el.addEventListener("mousedown", (e) => {
-                arrastrando = true;
-                offsetX = e.clientX - el.offsetLeft;
-                offsetY = e.clientY - el.offsetTop;
-                el.style.cursor = "grabbing";
-            });
-
-            document.addEventListener("mousemove", (e) => {
-                if (arrastrando) {
-                    el.style.left = (e.clientX - offsetX) + "px";
-                    el.style.top = (e.clientY - offsetY) + "px";
-                }
-            });
-
-            document.addEventListener("mouseup", () => {
-                arrastrando = false;
-                el.style.cursor = "grab";
-            });
-
-            // Estilo inicial
-            el.style.position = "absolute";
-            el.style.cursor = "grab";
-        }
-
-        // Seleccionar todas las burbujas y hacerlas arrastrables
-        document.querySelectorAll(".bubble-wrap").forEach(b => hacerArrastrable(b));
-    </script>
-</body>
-<svg style="display: none">
-    <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
-        <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" seed="5" result="turbulence" />
-
-        <feComponentTransfer in="turbulence" result="mapped">
-            <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
-            <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
-            <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
-        </feComponentTransfer>
-
-        <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
-
-        <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100"
-            lighting-color="white" result="specLight">
-            <fePointLight x="-200" y="-200" z="300" />
-        </feSpecularLighting>
-
-        <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage" />
-
-        <feDisplacementMap in="SourceGraphic" in2="softMap" scale="150" xChannelSelector="R" yChannelSelector="G" />
-    </filter>
-</svg>
+    {{-- Filtro SVG --}}
+    <svg style="display: none">
+        <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+            <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" seed="5" result="turbulence" />
+            <feComponentTransfer in="turbulence" result="mapped">
+                <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
+                <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
+                <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
+            </feComponentTransfer>
+            <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
+            <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100"
+                lighting-color="white" result="specLight">
+                <fePointLight x="-200" y="-200" z="300" />
+            </feSpecularLighting>
+            <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage" />
+            <feDisplacementMap in="SourceGraphic" in2="softMap" scale="150" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+    </svg>
 </body>
 
 </html>
