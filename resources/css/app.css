@@ -525,3 +525,24 @@ body {
     outline: none;
     box-shadow: 0 0 0 3px rgba(60, 38, 182, 0.4);
 }
+
+.modal-backdrop.show {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: calc(100vw / 0.55) !important; /* corrige el zoom */
+    height: calc(100vh / 0.55) !important; /* corrige el zoom */
+    transform: scale(0.75); /* iguala visualmente con el contenido */
+    transform-origin: top left;
+    background-color: rgba(0, 0, 0, 0.301) !important;
+    opacity: 0.9 !important;
+    z-index: 1040 !important;
+}
+
+/* Asegura que el modal esté sobre la tabla fullscreen */
+.modal {
+    position: fixed !important;
+    z-index: 1050 !important;
+
+    transform-origin: top left;
+}

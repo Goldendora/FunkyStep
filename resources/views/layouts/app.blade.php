@@ -21,9 +21,8 @@
             <a class="navbar-brand fw-bold text-uppercase" href="{{ route('dashboard') }}">Funkystep</a>
 
             {{-- Botón responsive --}}
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarFunky" aria-controls="navbarFunky" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarFunky"
+                aria-controls="navbarFunky" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -47,7 +46,12 @@
                     @if(Auth::check() && Auth::user()->role === 'admin')
                         <li class="nav-item">
                             <a href="{{ route('users.index') }}" class="nav-link fw-semibold btn-funky">
-                                Panel administrativo
+                                Panel de usuarios
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('products.index') }}" class="nav-link fw-semibold btn-funky">
+                                Panel de productos
                             </a>
                         </li>
                     @endif
@@ -94,7 +98,9 @@
                                     <strong>{{ Auth::user()->name }}</strong>
                                     <p class="mb-0 small">{{ Auth::user()->email }}</p>
                                 </li>
-                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
                                 <li>
                                     <button type="button" class="btn-funky btn btn-sm w-100" data-bs-toggle="modal"
                                         data-bs-target="#photoModal">
@@ -142,7 +148,8 @@
     </nav>
 
     {{-- Contenido principal dinámico --}}
-    <main class="container-fluid px-5 min-vh-100 d-flex flex-column justify-content-start" style="margin-top: 120px; padding-bottom: 120px;">
+    <main class="container-fluid px-5 min-vh-100 d-flex flex-column justify-content-start"
+        style="margin-top: 120px; padding-bottom: 120px;">
         {{-- Alertas globales --}}
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
@@ -171,9 +178,6 @@
     <footer class="text-center small mt-5 mb-3 textoblanco">
         © {{ date('Y') }} Funkystep. Todos los derechos reservados.
     </footer>
-
-    {{-- Bootstrap JS --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     {{-- Filtro SVG decorativo (igual que dashboard) --}}
     <svg style="display: none">

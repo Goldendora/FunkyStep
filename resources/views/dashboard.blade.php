@@ -40,7 +40,12 @@
                     @if(Auth::check() && Auth::user()->role === 'admin')
                         <li class="nav-item">
                             <a href="{{ route('users.index') }}" class="nav-link fw-semibold btn-funky">
-                                Panel administrativo
+                                Panel de usuarios
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('products.index') }}" class="nav-link fw-semibold btn-funky">
+                                Panel de productos
                             </a>
                         </li>
                     @endif
@@ -183,9 +188,8 @@
                 <img id="visual2" src="{{ Vite::asset('public/images/decoration/image1.png') }}"
                     alt="Zapatilla Nike Air Max 90 en gris y negro" class="visual2" />
             </section>
-            <section class="visual2-wrap" aria-label="Vista del producto">
-                <img src="{{ Vite::asset('public/images/decoration/Baner2.jpg') }}"
-                    alt="Zapatilla Nike Air Max 90 en gris y negro" class="visual2" />
+            <section>
+              
             </section>
         </div>
     </main>
@@ -229,7 +233,7 @@
                                     <button type="submit" class="product__btn">Agregar</button>
                                 </form>
                             @else
-                                <a href="{{ route('login') }}" class="product__btn">Login</a>
+                                <a href="{{ route('login') }}" class="product__btn text-decoration-none">Login</a>
                             @endauth
                         @else
                             <button class="product__btn" disabled>Agotado</button>
