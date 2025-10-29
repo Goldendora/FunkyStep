@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Funkystep</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/cart.css','resources/js/app.js'])
 
     <!-- Fuente principal -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,20 +56,23 @@
                     @if(Auth::check())
                         {{-- 🛒 Carrito --}}
                         <div class="cart-btn me-2">
-                            <a href="{{ route('cart.index') }}" id="btnCarrito"
+                            {{-- Botón para abrir el sidebar del carrito --}}
+                            <button id="btnCarrito"
                                 class="btn btn-funky position-relative d-flex align-items-center justify-content-center"
                                 style="width:42px; height:38px;">
                                 <i class="bi bi-bag fs-5"></i>
+
                                 @php
                                     $cartCount = \App\Models\CartItem::where('user_id', Auth::id())->count();
                                 @endphp
+
                                 @if($cartCount > 0)
                                     <span
                                         class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
                                         {{ $cartCount }}
                                     </span>
                                 @endif
-                            </a>
+                            </button>
                         </div>
 
                         {{-- 👤 Menú de usuario --}}
@@ -189,7 +192,7 @@
                     alt="Zapatilla Nike Air Max 90 en gris y negro" class="visual2" />
             </section>
             <section>
-              
+
             </section>
         </div>
     </main>
@@ -317,6 +320,17 @@
         @include('partials.profile-modal')
     @endif
 
+    @if(Auth::check())
+        @php
+            $cartData = \App\Http\Controllers\CartController::getSidebarData();
+        @endphp
+
+        @include('partials.cart-sidebar', [
+            'cartItems' => $cartData['cartItems'],
+            'cartTotal' => $cartData['cartTotal']
+        ])
+    @endif
+
     <footer class="text-center small mt-5 mb-3 textoblanco">
         © {{ date('Y') }} Funkystep. Todos los derechos reservados.
     </footer>
@@ -339,6 +353,27 @@
             <feDisplacementMap in="SourceGraphic" in2="softMap" scale="150" xChannelSelector="R" yChannelSelector="G" />
         </filter>
     </svg>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const openBtn = document.getElementById('btnCarrito');
+            const sidebar = document.getElementById('cartSidebar');
+            const closeBtn = document.getElementById('closeCartBtn');
+
+            if (openBtn && sidebar) {
+                openBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    sidebar.classList.add('open');
+                });
+            }
+
+            if (closeBtn && sidebar) {
+                closeBtn.addEventListener('click', () => {
+                    sidebar.classList.remove('open');
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

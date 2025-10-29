@@ -6,7 +6,7 @@
 /* === Variables globales Funkystep === */
 :root {
     --primary: #530303;
-    --secondary: #3c26b6;
+    --secondary: #413e4d;
     --boton: #1d1c22ab;
     --light: #f9fafb;
     --dark: #1a1a1a63;
@@ -182,6 +182,7 @@ body {
     height: auto;
     filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.6));
     transform: rotate(-8deg);
+    z-index:3;
 }
 
 /* === Imagen decorativa secundaria === */
@@ -260,7 +261,7 @@ body {
     left: 20%;
     top: 40%;
     animation: float 1s infinite ease;
-    z-index: -1;
+    z-index: 1;
 }
 
 .b2 {
@@ -269,6 +270,7 @@ body {
     right: -100px;
     top: 1%;
     animation: float 2.3s infinite ease;
+    z-index: 4;
 }
 
 .b3 {
@@ -277,6 +279,7 @@ body {
     right: 6%;
     top: 60%;
     animation: float 1.5s infinite ease;
+    z-index: 4;
 }
 
 .b4 {
@@ -285,6 +288,7 @@ body {
     left: 5%;
     bottom: 6%;
     animation: float 1.3s infinite ease;
+    z-index: 4;
 }
 
 .b5 {
@@ -293,6 +297,7 @@ body {
     left: 0%;
     top: 20%;
     animation: float 2s infinite ease;
+    z-index: 4;
 }
 
 .b6 {
@@ -301,7 +306,7 @@ body {
     left: 40%;
     top: 23%;
     animation: float 2s infinite ease;
-    z-index: -1;
+    z-index: 2;
 }
 
 /* === Texto animado === */

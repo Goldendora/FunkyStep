@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel - Funkystep</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/cart.css'])
 
     <!-- Fuente principal -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,21 +62,25 @@
                     @if(Auth::check())
                         {{-- 🛒 Carrito --}}
                         <div class="cart-btn me-2">
-                            <a href="{{ route('cart.index') }}" id="btnCarrito"
+                            {{-- Botón para abrir el sidebar del carrito --}}
+                            <button id="btnCarrito"
                                 class="btn btn-funky position-relative d-flex align-items-center justify-content-center"
                                 style="width:42px; height:38px;">
                                 <i class="bi bi-bag fs-5"></i>
+
                                 @php
                                     $cartCount = \App\Models\CartItem::where('user_id', Auth::id())->count();
                                 @endphp
+
                                 @if($cartCount > 0)
                                     <span
                                         class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
                                         {{ $cartCount }}
                                     </span>
                                 @endif
-                            </a>
+                            </button>
                         </div>
+
 
                         {{-- 👤 Menú de usuario --}}
                         <div class="dropdown">
@@ -174,6 +178,17 @@
         @include('partials.profile-modal')
     @endif
 
+    @if(Auth::check())
+        @php
+            $cartData = \App\Http\Controllers\CartController::getSidebarData();
+        @endphp
+
+        @include('partials.cart-sidebar', [
+            'cartItems' => $cartData['cartItems'],
+            'cartTotal' => $cartData['cartTotal']
+        ])
+    @endif
+
     {{-- Footer igual que el dashboard --}}
     <footer class="text-center small mt-5 mb-3 textoblanco">
         © {{ date('Y') }} Funkystep. Todos los derechos reservados.
@@ -190,13 +205,35 @@
             </feComponentTransfer>
             <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
             <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100"
-                lighting-color="white" result="specLight">
+                    lighting-color="white" result="specLight">
                 <fePointLight x="-200" y="-200" z="300" />
             </feSpecularLighting>
-            <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage" />
-            <feDisplacementMap in="SourceGraphic" in2="softMap" scale="150" xChannelSelector="R" yChannelSelector="G" />
+    <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage" />
+        <feDisplacementMap in="SourceGraphic" in2="softMap" scale="150" xChannelSelector="R" yChannelSelector="G" />
         </filter>
+        </svg>
     </svg>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const openBtn = document.getElementById('btnCarrito');
+            const sidebar = document.getElementById('cartSidebar');
+            const closeBtn = document.getElementById('closeCartBtn');
+
+            if (openBtn && sidebar) {
+                openBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    sidebar.classList.add('open');
+                });
+            }
+
+            if (closeBtn && sidebar) {
+                closeBtn.addEventListener('click', () => {
+                    sidebar.classList.remove('open');
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
