@@ -6,7 +6,7 @@
     {{-- Encabezado --}}
     <div class="cart-header d-flex justify-content-between align-items-center p-3 border-bottom border-secondary">
         <h5 class="fw-bold m-0">Tus productos</h5>
-        <button id="closeCartBtn" class="btn btn-sm">✕</button>
+        <button id="closeCartBtn" class="nav-link fw-semibold btn-funky">✕</button>
     </div>
 
     {{-- Contenido --}}

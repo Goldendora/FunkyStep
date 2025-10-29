@@ -136,7 +136,6 @@ CARRITO SIDEBAR FUNKYSTEP
 
     /* ===== Botones ===== */
 .cart-sidebar .btn {
-    color: #e0e0e0 !important;
     transition: transform 0.2s ease, color 0.2s ease, font-size 0.2s ease;
     border-radius: 8px;
     padding: 0.4rem 0.8rem;
@@ -148,7 +147,6 @@ CARRITO SIDEBAR FUNKYSTEP
 .cart-sidebar .btn:hover {
     transform: scale(1.05);
     font-size: 0.9rem;  /* pequeño incremento visual */
-    color: #fff;
 }
 
     .cart-sidebar .btn-outline-danger {
