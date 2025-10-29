@@ -43,16 +43,25 @@
             </ul>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-4">
             <label class="form-label">Confirmar contraseña</label>
             <input type="password" name="password_confirmation" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-gradient w-100 py-2 fw-bold">Registrarse</button>
+        {{-- ✅ Botón centralizado igual que el login --}}
+        <div class="super-button-container">
+            <button type="submit" class="super-button">
+                <span>Registrarse</span>
+                <svg fill="none" viewBox="0 0 24 24" class="arrow">
+                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor"
+                        d="M5 12h14M13 6l6 6-6 6"></path>
+                </svg>
+            </button>
+        </div>
 
-        <p class="text-center mt-3 small">
+        <p class="text-center mt-4 small">
             ¿Ya tienes cuenta?
-            <a href="{{ route('login') }}">Inicia sesión</a>
+            <a href="{{ route('login') }}" class="fw-semibold text-light text-decoration-none">Inicia sesión</a>
         </p>
     </form>
 

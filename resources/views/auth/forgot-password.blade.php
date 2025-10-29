@@ -1,49 +1,56 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperar contraseña - Funkystep</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-</head>
-<body class="bg-light d-flex align-items-center justify-content-center" style="height:100vh;">
+@extends('layouts.auth')
 
-    <div class="card shadow p-4" style="width: 420px;">
-        <h2 class="text-center mb-4">Recuperar contraseña</h2>
+@section('title', 'Recuperar contraseña - Funkystep')
 
-        {{-- Mostrar mensaje de estado --}}
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
+@section('content')
+    <h2 class="text-center mb-4 fw-bold">Recuperar contraseña</h2>
 
-        {{-- Mostrar errores --}}
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    {{-- Mostrar mensaje de estado --}}
+    @if (session('status'))
+        <div class="alert alert-success text-center">
+            {{ session('status') }}
+        </div>
+    @endif
 
-        {{-- Formulario para pedir el enlace --}}
-        <form method="POST" action="{{ route('password.email') }}">
-            @csrf
-            <div class="mb-3">
-                <label class="form-label">Correo electrónico</label>
-                <input type="email" name="email" class="form-control" required autofocus>
-            </div>
+    {{-- Mostrar errores --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-            <button type="submit" class="btn btn-primary w-100">Enviar enlace</button>
+    {{-- Formulario para pedir el enlace --}}
+    <form method="POST" action="{{ route('password.email') }}">
+        @csrf
+        <div class="mb-4">
+            <label class="form-label fw-semibold">Correo electrónico</label>
+            <input type="email"
+                   name="email"
+                   class="form-control"
+                   placeholder="Ingresa tu correo registrado"
+                   required
+                   autofocus>
+        </div>
 
-            <p class="text-center mt-3 mb-0">
-                <a href="{{ route('login') }}">Volver al inicio de sesión</a>
-            </p>
-        </form>
-    </div>
+        {{-- ✅ Botón animado coherente con login y register --}}
+        <div class="super-button-container">
+            <button type="submit" class="super-button">
+                <span>Enviar enlace</span>
+                <svg fill="none" viewBox="0 0 24 24" class="arrow">
+                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor"
+                        d="M5 12h14M13 6l6 6-6 6"></path>
+                </svg>
+            </button>
+        </div>
 
-</body>
-</html>
+        <p class="text-center mt-4 small">
+            <a href="{{ route('login') }}" class="text-light text-decoration-none fw-semibold">
+                <i class="bi bi-box-arrow-in-left me-1"></i> Volver al inicio de sesión
+            </a>
+        </p>
+    </form>
+@endsection

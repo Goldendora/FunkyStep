@@ -12,7 +12,6 @@
     --light: #f9fafb;
     --dark: #1b1b1b;
     --glass: rgba(255, 255, 255, 0.08);
-    --gradient: linear-gradient(90deg, #530303, #3c26b6);
 }
 
 /* ===== Estructura General ===== */
@@ -92,7 +91,8 @@ body {
 /* === Sección derecha === */
 .auth-right {
     width: 30%;
-    background-color: #161320;;
+    background-color: #161320;
+    ;
     backdrop-filter: blur(14px);
     display: flex;
     align-items: center;
@@ -101,7 +101,7 @@ body {
 
 /* === Tarjeta principal === */
 .auth-card {
-    font-family:"Funnel Display", sans-serif;
+    font-family: "Funnel Display", sans-serif;
     background: var(--glass);
     border-radius: 16px;
     width: 90%;
@@ -138,7 +138,7 @@ body {
 
 .auth-card .form-control:focus {
     background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 12px rgba(60, 38, 182, 0.6);
+    box-shadow: 0 0 12px rgba(182, 38, 38, 0.6);
     color: #fff;
 }
 
@@ -147,23 +147,6 @@ body {
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* === Botones === */
-.btn-gradient {
-    background: var(--gradient);
-    border: none;
-    color: #fff;
-    border-radius: 12px;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    transition: all 0.3s ease;
-    padding: 0.75rem 1.25rem;
-}
-
-.btn-gradient:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 0 18px rgba(83, 3, 3, 0.6);
-    background: linear-gradient(90deg, #3c26b6, #530303);
-}
 
 /* Botón alternativo */
 .btn-outline-light {
@@ -175,8 +158,8 @@ body {
 }
 
 .btn-outline-light:hover {
-    background: #fff;
-    color: #000;
+    background: #dd1010 !important;
+    border: 2px solid rgba(255, 0, 0, 0.4) !important;
     transform: scale(1.05);
 }
 
@@ -272,4 +255,78 @@ button:focus {
 
 button:active {
     transform: scale(0.97);
+}
+
+.super-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 28px;
+    background: #161320;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 100px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0 0 20px rgba(255, 1, 1, 0.1);
+    backdrop-filter: blur(8px);
+    z-index: 1;
+}
+
+.super-button::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, #702323, #df2929, #632020);
+    animation: rotate 4s linear infinite;
+    z-index: -2;
+}
+
+.super-button::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: #161320;
+    border-radius: inherit;
+    z-index: -1;
+}
+
+.super-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(228, 8, 8, 0.562);
+}
+
+.super-button:hover .arrow {
+    transform: translateX(6px);
+}
+
+.arrow {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s ease-in-out;
+    color: #c71111;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.super-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }

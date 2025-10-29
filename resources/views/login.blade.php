@@ -27,7 +27,15 @@
             <input type="password" name="password" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-gradient w-100 py-2 fw-bold">Ingresar</button>
+        <div class="super-button-container">
+            <button type="submit" class="super-button">
+                <span>Ingresar</span>
+                <svg fill="none" viewBox="0 0 24 24" class="arrow">
+                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor"
+                        d="M5 12h14M13 6l6 6-6 6"></path>
+                </svg>
+            </button>
+        </div>
     </form>
 
     <div class="d-flex justify-content-between mt-3 small">
