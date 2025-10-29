@@ -1,6 +1,6 @@
 {{-- ============================================
-     CARRITO LATERAL (SIDEBAR)
-     Requiere: $cartItems, $cartTotal
+CARRITO LATERAL (SIDEBAR)
+Requiere: $cartItems, $cartTotal
 =============================================== --}}
 <div id="cartSidebar" class="cart-sidebar shadow-lg text-white">
     {{-- Encabezado --}}
@@ -46,7 +46,7 @@
                 </a>
 
                 <form action="{{ route('cart.clear') }}" method="POST"
-                      onsubmit="return confirm('¿Vaciar el carrito completo?')" class="mt-2">
+                    onsubmit="return confirm('¿Vaciar el carrito completo?')" class="mt-2">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-outline-warning w-100 fw-semibold">
@@ -57,9 +57,8 @@
         @else
             {{-- Carrito vacío --}}
             <div class="text-center mt-5">
-                <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
-                    alt="Carrito vacío" class="opacity-75 mb-3" width="100">
-                <p class="text-muted">Tu carrito está vacío.</p>
+                <img src="{{ asset('images/logo/funky.png') }}" alt="Carrito vacío" class="opacity-75 mb-3" width="100">
+                <p class="text-white">Tu carrito está vacío.</p>
                 <a href="{{ route('dashboard') }}" class="btn mt-2 btn-outline-light">
                     Explorar productos
                 </a>
