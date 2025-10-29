@@ -48,8 +48,8 @@
                     </button>
                 </form>
 
-                <a href="{{ route('cart.index') }}" class="btn btn-secondary w-100 py-3 fw-semibold rounded-3">
-                    Regresar al carrito
+                <a href="{{ route('dashboard') }}" class="btn btn-secondary w-100 py-3 fw-semibold rounded-3">
+                    Cancelar compra
                 </a>
             </div>
         </div>

@@ -191,8 +191,9 @@
                 <img id="visual2" src="{{ Vite::asset('public/images/decoration/image1.png') }}"
                     alt="Zapatilla Nike Air Max 90 en gris y negro" class="visual2" />
             </section>
-            <section>
-
+            <section class="visual2-wrap" aria-label="Vista del producto">
+                <img src="{{ Vite::asset('public\images\decoration\HallowenBaner.png') }}"
+                    alt="Zapatilla Nike Air Max 90 en gris y negro" class="visual2" />
             </section>
         </div>
     </main>
