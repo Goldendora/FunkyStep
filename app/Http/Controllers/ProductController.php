@@ -22,7 +22,7 @@ class ProductController extends Controller
     }
     public function showProducts()
     {
-        $products = Product::all(); 
+        $products = Product::all();
         return view('collection', compact('products'));
     }
 
