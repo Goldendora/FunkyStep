@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Funkystep</title>
-    @vite(['resources/css/app.css', 'resources/css/cart.css','resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/cart.css', 'resources/js/app.js'])
     <link rel="icon" type="image/png" href="{{ asset('images/logo/funky.png') }}">
 
     <!-- Fuente principal -->
@@ -146,7 +146,19 @@
     </nav>
 
     {{-- Contenido principal --}}
+
     <main class="hero">
+        <div class="video-container">
+            <video autoplay loop muted playsinline id="bg-video"
+                src="{{ Vite::asset('public/videos/banner/funkystepbaner.mp4') }}">
+            </video>
+            <div class="separator"></div>
+            <div class="fw-bold text-uppercase overlay">
+                <h1>FUNKYSTEP</h1>
+                <p>PASO A PASO EL TRIUNFO LLEGARÁ</p>
+            </div>
+
+        </div>
         <div class="container-fluid px-5 hero-grid">
             {{-- Texto principal --}}
             <section aria-labelledby="hero-title">
@@ -186,7 +198,8 @@
                 <div class="bubble-wrap b5"><span class="bubble" aria-hidden="true"></span></div>
                 <div class="bubble-wrap b6"><span class="bubble" aria-hidden="true"></span></div>
             </section>
-
+        </div>
+        <div class="container-fluid px-5 hero-grid">
             {{-- Imagen decorativa secundaria --}}
             <section class="visual2-wrap" aria-label="Vista del producto">
                 <img id="visual2" src="{{ Vite::asset('public/images/decoration/image1.png') }}"
@@ -198,7 +211,7 @@
             </section>
         </div>
     </main>
-
+    </div>
     {{-- Catálogo público de productos --}}
     @if(isset($products) && count($products) > 0)
         <div class="container-fluid px-5 mt-5">
