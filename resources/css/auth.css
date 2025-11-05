@@ -138,7 +138,7 @@ body {
 
 .auth-card .form-control:focus {
     background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 12px rgba(182, 38, 38, 0.6);
+    box-shadow: 0 0 12px rgba(81, 79, 204, 0.6);
     color: #fff;
 }
 
@@ -274,7 +274,7 @@ button:active {
     cursor: pointer;
     overflow: hidden;
     transition: all 0.4s ease-in-out;
-    box-shadow: 0 0 20px rgba(255, 1, 1, 0.1);
+    box-shadow: 0 0 20px rgba(69, 1, 255, 0.1);
     backdrop-filter: blur(8px);
     z-index: 1;
 }
@@ -286,7 +286,7 @@ button:active {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: conic-gradient(from 0deg, #702323, #df2929, #632020);
+    background: conic-gradient(from 0deg, #9d89ec, #492fb3, #492fb3);
     animation: rotate 4s linear infinite;
     z-index: -2;
 }
@@ -302,7 +302,7 @@ button:active {
 
 .super-button:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 40px rgba(228, 8, 8, 0.562);
+    box-shadow: 0 0 40px rgba(8, 30, 228, 0.562);
 }
 
 .super-button:hover .arrow {
@@ -313,7 +313,7 @@ button:active {
     width: 22px;
     height: 22px;
     transition: transform 0.3s ease-in-out;
-    color: #c71111;
+    color: #492fb3;
 }
 
 @keyframes rotate {
