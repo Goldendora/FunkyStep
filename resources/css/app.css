@@ -393,12 +393,15 @@ body {
 
 .catalogo {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(330px, 360px));
     gap: 3rem;
-    justify-items: center;
-    margin-top: 4rem;
+    justify-content: center;   
+    justify-items: center;    
+    align-items: start;       
+    margin: 4rem auto;        
+    width: 100%;
+    max-width: 1300px;        
 }
-
 .product {
     position: relative;
     width: 360px;

@@ -213,22 +213,17 @@
     </main>
     </div>
     {{-- Catálogo público de productos --}}
-    @if(isset($products) && count($products) > 0)
+    @if(isset($banerproducts) && count($banerproducts) > 0)
         <div class="container-fluid px-5 mt-5">
             <div class="content textoblanco">
                 <h1 class="title">
                     Estos son nuestros productos mas vendidos
-                    <div class="aurora">
-                        <div class="aurora__item"></div>
-                        <div class="aurora__item"></div>
-                        <div class="aurora__item"></div>
-                        <div class="aurora__item"></div>
-                    </div>
                 </h1>
                 <p class="subtitle">Si lo piensas, lo encuentras en FunkyStep</p>
             </div>
+
             <div class="catalogo">
-                @foreach($products as $product)
+                @foreach($banerproducts as $product)
                     <div class="product">
                         <span class="product__price">
                             ${{ number_format($product->price - ($product->price * ($product->discount / 100)), 0, ',', '.') }}
@@ -261,13 +256,14 @@
             </div>
 
             {{-- Paginador --}}
-            @if ($products->hasPages())
+            @if(method_exists($banerproducts, 'hasPages') && $banerproducts->hasPages())
                 <div class="mt-5 d-flex justify-content-center">
                     {{ $products->onEachSide(1)->links('pagination::funkystep') }}
                 </div>
             @endif
         </div>
-        {{-- Modal de producto (se mantiene dentro del archivo) --}}
+
+        {{-- Modal de producto --}}
         <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
