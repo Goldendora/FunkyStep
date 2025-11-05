@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Funnel Display', 'Arial', sans-serif;
-            background-color: #f4f4f6;
+            background-color: #492fb3;
             color: #222;
             margin: 0;
             padding: 0;
@@ -24,7 +24,7 @@
         }
 
         .header {
-            background: #530303;
+            background: #492fb3;
             color: #ffffff;
             text-align: center;
             padding: 30px 20px;
@@ -72,7 +72,7 @@
         }
 
         a {
-            color: #530303;
+            color: #492fb3;
             text-decoration: none;
             font-weight: 600;
         }
@@ -85,7 +85,7 @@
         .divider {
             width: 60px;
             height: 4px;
-            background-color: #530303;
+            background-color: #492fb3;
             margin: 0 auto 30px;
             border-radius: 2px;
         }
