@@ -23,16 +23,52 @@ class ProductController extends Controller
     /**
      * Mostrar el catálogo completo de productos activos (público).
      */
-    public function showCatalog()
+    /**
+     * Mostrar el catálogo completo de productos activos con filtros y búsqueda.
+     */
+    public function showCatalog(Request $request)
     {
-        // Solo productos activos, ordenados por fecha
-        $products = Product::where('is_active', true)
-            ->orderBy('created_at', 'desc')
-            ->paginate(12); // paginación de 12 por página
+        // Iniciamos la query base: solo productos activos
+        $query = Product::where('is_active', true);
 
-        // Retorna la vista catalogo/index.blade.php
-        return view('catalog.index', compact('products'));
+        // --- FILTROS DINÁMICOS ---
+        // Búsqueda por nombre o descripción
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('description', 'LIKE', "%{$search}%");
+            });
+        }
+
+        // Filtro por marca
+        if ($request->filled('brand')) {
+            $query->where('brand', $request->input('brand'));
+        }
+
+        // Filtro por categoría
+        if ($request->filled('category')) {
+            $query->where('category', $request->input('category'));
+        }
+
+        // Filtro por rango de precios
+        if ($request->filled('min_price')) {
+            $query->where('price', '>=', $request->input('min_price'));
+        }
+        if ($request->filled('max_price')) {
+            $query->where('price', '<=', $request->input('max_price'));
+        }
+
+        // --- EJECUTAR CONSULTA ---
+        $products = $query->orderBy('created_at', 'desc')->paginate(12);
+
+        // Obtener marcas y categorías únicas para los selectores
+        $brands = Product::where('is_active', true)->distinct()->pluck('brand')->filter();
+        $categories = Product::where('is_active', true)->distinct()->pluck('category')->filter();
+
+        return view('catalog.index', compact('products', 'brands', 'categories'));
     }
+
 
     /**
      * Mostrar listado de productos (solo para el panel admin).
