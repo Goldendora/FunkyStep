@@ -39,10 +39,11 @@ Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showRese
 Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 // -------------------------------------------------------------
-// DASHBOARD PÚBLICO
+// DASHBOARD PÚBLICO/CATÁLOGO PÚBLICO
 // -------------------------------------------------------------
 // Cualquier usuario (logueado o invitado) puede acceder.
 Route::get('/dashboard', [ProductController::class, 'showPublic'])->name('dashboard');
+Route::get('/catalog', [ProductController::class, 'showCatalog'])->name('catalog.index');
 
 
 // -------------------------------------------------------------

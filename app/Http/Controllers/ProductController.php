@@ -20,10 +20,18 @@ class ProductController extends Controller
 
         return view('dashboard', compact('banerproducts'));
     }
-    public function showProducts()
+    /**
+     * Mostrar el catálogo completo de productos activos (público).
+     */
+    public function showCatalog()
     {
-        $products = Product::all();
-        return view('collection', compact('products'));
+        // Solo productos activos, ordenados por fecha
+        $products = Product::where('is_active', true)
+            ->orderBy('created_at', 'desc')
+            ->paginate(12); // paginación de 12 por página
+
+        // Retorna la vista catalogo/index.blade.php
+        return view('catalog.index', compact('products'));
     }
 
     /**

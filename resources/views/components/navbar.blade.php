@@ -10,7 +10,7 @@
                     <a class="nav-link fw-semibold btn-funky" href="{{ route('dashboard') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fw-semibold btn-funky" href="#collection">Collection</a>
+                    <a class="nav-link fw-semibold btn-funky" href="{{ route('catalog.index') }}" >Collection</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fw-semibold btn-funky" href="#about">About Us</a>
