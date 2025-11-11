@@ -1,55 +1,68 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restablecer contraseña - Funkystep</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-</head>
-<body class="bg-light d-flex align-items-center justify-content-center" style="height:100vh;">
+@extends('layouts.auth')
 
-    <div class="card shadow p-4" style="width: 420px;">
-        <h2 class="text-center mb-4">Restablecer contraseña</h2>
+@section('title', 'Restablecer contraseña - Funkystep')
 
-        {{-- Mostrar mensajes --}}
-        @if (session('status'))
-            <div class="alert alert-success">{{ session('status') }}</div>
-        @endif
+@section('content')
+    <h2 class="text-center mb-4 fw-bold">Restablecer contraseña</h2>
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    {{-- Mostrar mensajes --}}
+    @if (session('status'))
+        <div class="alert alert-success text-center">
+            {{ session('status') }}
+        </div>
+    @endif
 
-        {{-- Formulario de nueva contraseña --}}
-        <form method="POST" action="{{ route('password.update') }}">
-            @csrf
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-            <input type="hidden" name="token" value="{{ $token }}">
-            <input type="hidden" name="email" value="{{ $email }}">
+    {{-- Formulario de nueva contraseña --}}
+    <form method="POST" action="{{ route('password.update') }}">
+        @csrf
 
-            <div class="mb-3">
-                <label class="form-label">Nueva contraseña</label>
-                <input type="password" name="password" class="form-control" required autofocus>
-            </div>
+        <input type="hidden" name="token" value="{{ $token }}">
+        <input type="hidden" name="email" value="{{ $email }}">
 
-            <div class="mb-3">
-                <label class="form-label">Confirmar contraseña</label>
-                <input type="password" name="password_confirmation" class="form-control" required>
-            </div>
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Nueva contraseña</label>
+            <input type="password"
+                   name="password"
+                   class="form-control"
+                   placeholder="Ingresa una nueva contraseña"
+                   required
+                   autofocus>
+        </div>
 
-            <button type="submit" class="btn btn-success w-100">Actualizar contraseña</button>
+        <div class="mb-4">
+            <label class="form-label fw-semibold">Confirmar contraseña</label>
+            <input type="password"
+                   name="password_confirmation"
+                   class="form-control"
+                   placeholder="Repite la nueva contraseña"
+                   required>
+        </div>
 
-            <p class="text-center mt-3 mb-0">
-                <a href="{{ route('login') }}">Volver al inicio de sesión</a>
-            </p>
-        </form>
-    </div>
+        {{-- ✅ Botón Funkystep coherente con todo el sistema --}}
+        <div class="super-button-container">
+            <button type="submit" class="super-button">
+                <span>Actualizar contraseña</span>
+                <svg fill="none" viewBox="0 0 24 24" class="arrow">
+                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor"
+                        d="M5 12h14M13 6l6 6-6 6"></path>
+                </svg>
+            </button>
+        </div>
 
-</body>
-</html>
+        <p class="text-center mt-4 small">
+            <a href="{{ route('login') }}" class="text-light text-decoration-none fw-semibold">
+                <i class="bi bi-box-arrow-in-left me-1"></i> Volver al inicio de sesión
+            </a>
+        </p>
+    </form>
+@endsection

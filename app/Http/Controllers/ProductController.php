@@ -13,11 +13,17 @@ class ProductController extends Controller
      */
     public function showPublic()
     {
-        $products = Product::where('is_active', true)
+        $banerproducts = Product::whereIn('id', [1, 21, 20]) // solo esos IDs
+            ->where('is_active', true)
             ->orderBy('created_at', 'desc')
-            ->paginate(12);
+            ->get(); // no uses paginate si son pocos
 
-        return view('dashboard', compact('products'));
+        return view('dashboard', compact('banerproducts'));
+    }
+    public function showProducts()
+    {
+        $products = Product::all();
+        return view('collection', compact('products'));
     }
 
     /**
@@ -52,7 +58,7 @@ class ProductController extends Controller
             'sku' => 'required|string|max:50|unique:products',
             'discount' => 'nullable|numeric|min:0|max:100',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'is_active' => 'nullable', 
+            'is_active' => 'nullable',
         ]);
 
         // Guardar imagen
@@ -93,7 +99,7 @@ class ProductController extends Controller
             'brand' => 'nullable|string|max:100',
             'discount' => 'nullable|numeric|min:0|max:100',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'is_active' => 'nullable', 
+            'is_active' => 'nullable',
         ]);
 
         // Si se sube una nueva imagen, reemplazar la anterior

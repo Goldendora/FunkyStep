@@ -91,4 +91,22 @@ class CartController extends Controller
 
         return back()->with('success', 'Carrito vaciado.');
     }
+
+    public static function getSidebarData()
+    {
+        if (!Auth::check()) {
+            return ['cartItems' => collect(), 'cartTotal' => 0];
+        }
+
+        $items = CartItem::with('product')
+            ->where('user_id', Auth::id())
+            ->get();
+
+        $total = $items->sum(function ($item) {
+            $precioConDescuento = $item->product->price - ($item->product->price * ($item->product->discount / 100));
+            return $precioConDescuento * $item->quantity;
+        });
+
+        return ['cartItems' => $items, 'cartTotal' => $total];
+    }
 }

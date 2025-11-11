@@ -20,13 +20,10 @@ class TwoFactorController extends Controller
         $user->save();
 
         // Enviar correo con el código
-        Mail::raw(
-            "Hola {$user->name},\n\nTu código de verificación Funkystep es: {$user->two_factor_code}\n\nEste código expirará en 10 minutos.\n\nSi no solicitaste este código, puedes ignorar este mensaje.",
-            function ($message) use ($user) {
-                $message->to($user->email)
-                        ->subject('Tu código de verificación - Funkystep');
-            }
-        );
+        Mail::send('mail.twofactor', ['user' => $user], function ($message) use ($user) {
+            $message->to($user->email)
+                ->subject('Tu código de verificación - Funkystep');
+        });
     }
 
     /**
@@ -63,7 +60,7 @@ class TwoFactorController extends Controller
         $this->sendTwoFactorCode($user);
 
         return redirect()->route('verify.2fa')
-                         ->with('success', 'Se envió un nuevo código de verificación a tu correo.');
+            ->with('success', 'Se envió un nuevo código de verificación a tu correo.');
     }
 
     /**
@@ -92,7 +89,7 @@ class TwoFactorController extends Controller
             $user->save();
 
             return redirect()->route('dashboard')
-                             ->with('success', 'Verificación 2FA completada correctamente 🎉');
+                ->with('success', 'Verificación 2FA completada correctamente 🎉');
         }
 
         return back()->withErrors(['code' => 'Código incorrecto o expirado.']);

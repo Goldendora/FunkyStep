@@ -1,0 +1,143 @@
+@import url('https://unpkg.com/normalize.css') layer(normalize);
+
+@layer normalize, base, demo;
+
+/* ===============================
+   FORMULARIO PRODUCTO - FUNKYSTEP DARK
+=============================== */
+@layer demo {
+    :root {
+        --border: rgba(255, 255, 255, 0.08);
+        --background: #0d0d0d00;
+        --panel: #181818;
+        --color: rgba(255, 255, 255, 0.88);
+        --hover-background: rgba(255, 255, 255, 0.05);
+        --success: #24a365;
+        --danger: #b52a35;
+        --info: #0dcaf0;
+    }
+
+    body {
+        background: var(--background);
+        color: var(--color);
+        font-family: 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .product-edit-fullscreen {
+        min-height: calc(100vh - 70px);
+        background: var(--background);
+    }
+
+    /* ======= FORMULARIO ======= */
+    .form-box-funky {
+        max-width: 700px;
+        background: rgba(24, 24, 24, 0.95);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 0 30px rgba(60, 38, 182, 0.25);
+        color: var(--color);
+    }
+
+    .form-label {
+        color: rgba(255, 255, 255, 0.7);
+        font-weight: 500;
+    }
+
+    .form-control,
+    .form-select {
+        background-color: #1a1a1a;
+        border: 1px solid var(--border);
+        color: var(--color);
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        transition: all 0.2s ease;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        background-color: #222;
+        border-color: var(--info);
+        box-shadow: 0 0 0 2px rgba(13, 202, 240, 0.25);
+        color: #fff;
+    }
+
+    input[type="file"] {
+        background: #1a1a1a;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 0.6rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* ======= BOTONES ======= */
+    .btn {
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.25s ease-in-out;
+    }
+
+    .btn-success {
+        background-color: var(--success);
+        border: none;
+        color: #fff;
+    }
+
+    .btn-success:hover {
+        background-color: #2fd47c;
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+        background-color: #3a3a3a;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #555;
+        transform: translateY(-2px);
+    }
+
+    /* ======= ALERTAS ======= */
+    .alert-danger {
+        background-color: rgba(181, 42, 53, 0.15);
+        border: 1px solid var(--danger);
+        color: #ff6b6b;
+    }
+
+    /* ======= ANIMACIÓN DE ENTRADA ======= */
+    .form-box-funky {
+        animation: fadeInForm 0.4s ease-out;
+    }
+
+    @keyframes fadeInForm {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* ===============================
+   BASE GLOBAL
+=============================== */
+@layer base {
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    body {
+        background: #0d0d0d;
+        color: #e0e0e0;
+    }
+}

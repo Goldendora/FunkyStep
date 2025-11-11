@@ -1,11 +1,623 @@
-@import 'tailwindcss';
+/* === Bootstrap core === */
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+@import "aos/dist/aos.css";
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+/* === Variables globales Funkystep === */
+:root {
+    --primary: #530303;
+    --secondary: #492fb3;
+    --boton: #1d1c22ab;
+    --light: #f9fafb;
+    --dark: #1a1a1a63;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+/* === General === */
+html {
+    zoom: 0.75;
+}
+
+body {
+    font-family: "Funnel Display", sans-serif;
+    background: radial-gradient(120% 120% at 70% 20%, #bbadad 0%, #000000 60%);
+    user-select: none;
+}
+
+.h2 {
+    color: #000;
+}
+
+/* === Navbar === */
+.navbar {
+    background-color: var(--primary);
+}
+
+.dropdown-menu {
+    background-color: var(--boton);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.navbar .dropdown-menu {
+    margin-top: 1.3rem;
+    /* solo separación visual */
+    position: absolute;
+    /* deja que Popper calcule */
+    z-index: 1055;
+    /* sobre el navbar */
+}
+
+.dropdown-item {
+    color: var(--light);
+}
+
+.btn-outline-danger {
+    color: var(--light);
+}
+
+/* === Botones === */
+.btn-funky {
+    color: #fff;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-funky:hover {
+    transform: scale(1.08);
+    color: var(--secondary);
+    text-decoration-color: var(--secondary);
+}
+
+/* === Tarjetas === */
+.card-funky {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease-in-out;
+}
+
+.card-funky:hover {
+    transform: scale(1.02);
+}
+
+/* === Hero principal === */
+.hero {
+    position: relative;
+    color: #fff;
+    font-family: "Funnel Display", sans-serif, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 4rem 0;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 32px;
+    min-height: 120vh;
+    padding: 100px 0;
+}
+
+.hero .tag {
+    font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+    letter-spacing: 0.35em;
+    color: #c9c9c9;
+    margin-bottom: 8px;
+}
+
+.hero .title {
+    font-size: clamp(3rem, 12vw, 10rem);
+    line-height: 0.9;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+}
+
+.hero .subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    letter-spacing: 0.4em;
+    font-weight: 700;
+    color: #c9c9c9;
+    margin-bottom: 20px;
+}
+
+.hero .price {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    margin-bottom: 22px;
+}
+
+.hero .desc {
+    max-width: 48ch;
+    color: #c9c9c9;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 36px;
+}
+
+.desc {
+    max-width: 48ch;
+    color: #c9c9c9;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 36px;
+}
+
+
+.hero .cta {
+    display: inline-block;
+    border: 0;
+    border-radius: 14px;
+    padding: 16px 22px;
+    background: rgba(5, 3, 3, 0.58);
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25),
+        inset 0 1px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.hero .cta:hover {
+    transform: translateY(-2px) scale(1.05);
+    color: var(--secondary);
+    background: #fff;
+}
+
+/* === Visual principal === */
+.visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual img {
+    width: 90%;
+    height: auto;
+    filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.6));
+    transform: rotate(-8deg);
+    z-index: 3;
+}
+
+/* === Imagen decorativa secundaria === */
+.visual2-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 900px;
+    height: 1000px;
+    flex-shrink: 0;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0 20px 20px rgba(0, 0, 0, 0.6));
+}
+
+.visual2 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.visual2:hover {
+    transform: scale(1.05);
+}
+
+#visual2 {
+    transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+#visual2.slide {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+/* === Burbujas decorativas === */
+.bubble-wrap {
+    position: absolute;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 6px 6px #00000033, 0 0 20px #0000001a;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
+    z-index: 1;
+}
+
+.bubble {
+    border-radius: 50%;
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(3px);
+    filter: url(#glass-distortion);
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Burbujas individuales */
+.b1 {
+    width: 122px;
+    height: 120px;
+    left: 20%;
+    top: 40%;
+    animation: float 1s infinite ease;
+    z-index: 1;
+}
+
+.b2 {
+    width: 280px;
+    height: 280px;
+    right: -100px;
+    top: 1%;
+    animation: float 2.3s infinite ease;
+    z-index: 4;
+}
+
+.b3 {
+    width: 230px;
+    height: 230px;
+    right: 6%;
+    top: 60%;
+    animation: float 1.5s infinite ease;
+    z-index: 4;
+}
+
+.b4 {
+    width: 260px;
+    height: 260px;
+    left: 5%;
+    bottom: 6%;
+    animation: float 1.3s infinite ease;
+    z-index: 4;
+}
+
+.b5 {
+    width: 192px;
+    height: 190px;
+    left: 0%;
+    top: 20%;
+    animation: float 2s infinite ease;
+    z-index: 4;
+}
+
+.b6 {
+    width: 332px;
+    height: 330px;
+    left: 40%;
+    top: 23%;
+    animation: float 2s infinite ease;
+    z-index: 2;
+}
+
+/* === Texto animado === */
+.cursor {
+    display: inline-block;
+    overflow: hidden;
+    border-right: 2px solid #fff;
+    white-space: nowrap;
+}
+
+.line1 {
+    animation:
+        typewriter1 4s steps(60) 0.5s 1 normal both,
+        blinkingCursor 500ms steps(50) infinite normal;
+}
+
+.line2 {
+    width: 0;
+    animation:
+        typewriter2 5s steps(60) 4.8s 1 normal both,
+        blinkingCursor 500ms steps(50) infinite normal;
+}
+
+@keyframes typewriter1 {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes typewriter2 {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blinkingCursor {
+    from {
+        border-right-color: rgba(255, 255, 255, 0);
+    }
+
+    to {
+        border-right-color: transparent;
+    }
+}
+
+/* === Responsive === */
+@media (max-width: 980px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        padding: 56px 0 12px;
+    }
+
+    .visual img {
+        transform: none;
+        margin-top: -10px;
+    }
+
+    .b2 {
+        right: 10%;
+        top: 8%;
+        width: 300px;
+        height: 300px;
+    }
+
+    .b3 {
+        right: -6%;
+        top: 40%;
+    }
+
+    .b4 {
+        left: 50%;
+        bottom: -6%;
+    }
+}
+
+.catalogo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 360px));
+    gap: 3rem;
+    justify-content: center;   
+    justify-items: center;    
+    align-items: start;       
+    margin: 4rem auto;        
+    width: 100%;
+    max-width: 1300px;        
+}
+.product {
+    position: relative;
+    width: 360px;
+    padding: 40px 40px 60px;
+    border-radius: 12px;
+    background-color: #574f4fd5;
+    transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.25s ease;
+    box-shadow: 0 30px 25px -20px rgba(0, 0, 0, 0.15);
+    text-align: left;
+}
+
+.product:hover {
+    box-shadow: 0 36px 28px -20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-6px);
+}
+
+.product__image {
+    width: 100%;
+    margin-left: 0%;
+    margin-top: -10px;
+    margin-bottom: 25px;
+    max-width: none;
+    border-radius: 6px;
+}
+
+.product__title {
+    font-size: 1.6rem;
+    color: #ffffff;
+    margin: 0 0 0.3em;
+    font-weight: 700;
+}
+
+.product__category {
+    display: block;
+    color: #a10808;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    font-weight: 700;
+    margin-bottom: 0.8em;
+}
+
+.product__price {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -25px;
+    left: -25px;
+    width: 90px;
+    height: 90px;
+    background-color: #a10808;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    font-weight: 700;
+}
+
+.product__btn {
+    position: absolute;
+    bottom: -10px;
+    right: 30px;
+    background-color: #34405c;
+    color: #fff;
+    padding: 1em 2.5em;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 1.3px;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product__btn:hover {
+    background-color: #a50722;
+}
+
+.textoblanco {
+    color: #ffffff;
+}
+
+/* === Paginador Funkystep === */
+.funky-pagination {
+    gap: 10px;
+}
+
+.funky-pagination .page-item {
+    margin: 0;
+}
+
+.funky-pagination .page-link {
+    background-color: #1b1b1b;
+    color: #fff;
+    border: 1px solid #2d2d2d;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.funky-pagination .page-link:hover {
+    background: linear-gradient(90deg, #530303, #3c26b6);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(83, 3, 3, 0.6);
+}
+
+.funky-pagination .page-item.active .page-link {
+    background: linear-gradient(90deg, #a10808, #3c26b6);
+    border: none;
+    color: #fff;
+    font-weight: 800;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(60, 38, 182, 0.6);
+}
+
+.funky-pagination .page-item.disabled .page-link {
+    background-color: #333;
+    color: #777;
+    border-color: #444;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.funky-pagination .page-link:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(60, 38, 182, 0.4);
+}
+
+.modal-backdrop.show {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: calc(100vw / 0.55) !important;
+    /* corrige el zoom */
+    height: calc(100vh / 0.55) !important;
+    /* corrige el zoom */
+    transform: scale(0.75);
+    /* iguala visualmente con el contenido */
+    transform-origin: top left;
+    background-color: rgba(0, 0, 0, 0.301) !important;
+    opacity: 0.9 !important;
+    z-index: 1040 !important;
+}
+
+/* Asegura que el modal esté sobre la tabla fullscreen */
+.modal {
+    position: fixed !important;
+    z-index: 1050 !important;
+
+    transform-origin: top left;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 125vh;
+    overflow: hidden;
+}
+
+#bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    z-index: 2;
+}
+
+.overlay h1 {
+    font-size: 4rem;
+}
+
+.overlay p {
+    font-size: 1.5rem;
+}
+
+.separator {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    margin-top: -20px;
+    background: #212529;
+    z-index: 2;
+}
+
+
+::-webkit-scrollbar {
+    width: 5px;
+
+}
+
+/* Fondo del track (la parte gris de atrás) */
+::-webkit-scrollbar-track {
+    background: #212529;
+    /* color base */
+}
+
+/* El “thumb” (la barra que se mueve) */
+::-webkit-scrollbar-thumb {
+    background-color: #666262;
+}
+
+/* Hover: cambia color cuando pasas el mouse */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #444;
 }

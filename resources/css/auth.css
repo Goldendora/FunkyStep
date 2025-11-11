@@ -1,0 +1,332 @@
+/* === Auth Layout - Funkystep === */
+/* Hereda la identidad de app.css (colores, degradados y fuentes) */
+
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+/* Variables Funkystep */
+:root {
+    --primary: #530303;
+    --secondary: #3c26b6;
+    --accent: #a10808;
+    --light: #f9fafb;
+    --dark: #1b1b1b;
+    --glass: rgba(255, 255, 255, 0.08);
+}
+
+/* ===== Estructura General ===== */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Funnel Display", sans-serif;
+    background: radial-gradient(120% 120% at 70% 20%, #bbadad 0%, #000000 60%);
+    overflow: hidden;
+    user-select: none;
+    color: var(--light);
+}
+
+/* ===== Layout principal ===== */
+.auth-body {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* === Sección izquierda === */
+.auth-left {
+    width: 70%;
+    position: relative;
+    background: url('/images/login-bg.jpg') no-repeat center center/cover;
+}
+
+.auth-left .overlay {
+    position: absolute;
+    inset: 0;
+    background: #161320;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.funky-title {
+    background: radial-gradient(62.35% 62.28% at 50.32% 51.18%, rgba(255, 255, 255, 0.12) 0%, rgba(0, 0, 0, 0.12) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 150px;
+    margin-top: 380px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    letter-spacing: -5.91px;
+    text-transform: uppercase;
+}
+
+.bars {
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    gap: 20px;
+
+}
+
+.bar {
+    width: 70px;
+    height: 500px;
+    background: #EB1C23;
+    ;
+}
+
+.auth-img {
+    width: 80%;
+    height: 80%;
+    position: relative;
+    z-index: 3;
+    margin-top: 120px;
+    filter: drop-shadow(0px 30px 50px rgb(0, 0, 0));
+}
+
+/* === Sección derecha === */
+.auth-right {
+    width: 30%;
+    background-color: #161320;
+    ;
+    backdrop-filter: blur(14px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* === Tarjeta principal === */
+.auth-card {
+    font-family: "Funnel Display", sans-serif;
+    background: var(--glass);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 420px;
+    padding: 2.5rem;
+    color: var(--light);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    animation: popUp 0.6s ease;
+}
+
+.auth-card h2 {
+    font-weight: 800;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 1.8rem;
+    letter-spacing: 0.6px;
+}
+
+/* === Formularios === */
+.auth-card label {
+    color: #ddd;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.auth-card .form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 14px;
+    transition: all 0.3s ease;
+}
+
+.auth-card .form-control:focus {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 12px rgba(81, 79, 204, 0.6);
+    color: #fff;
+}
+
+/* Placeholder blanco tenue */
+.auth-card .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+
+/* Botón alternativo */
+.btn-outline-light {
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+    background: #dd1010 !important;
+    border: 2px solid rgba(255, 0, 0, 0.4) !important;
+    transform: scale(1.05);
+}
+
+/* === Enlaces === */
+.auth-card a {
+    color: #b5a7ff;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.auth-card a:hover {
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* === Mensajes de alerta === */
+.alert {
+    border-radius: 10px;
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.alert-danger {
+    background-color: rgba(181, 42, 53, 0.2);
+    border: 1px solid rgba(255, 0, 0, 0.25);
+    color: #ff8080;
+}
+
+.alert-success {
+    background-color: rgba(36, 163, 101, 0.25);
+    border: 1px solid rgba(47, 212, 124, 0.3);
+    color: #a2ffcb;
+}
+
+/* === Animaciones === */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes popUp {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* === Responsive === */
+@media (max-width: 991px) {
+    .auth-left {
+        display: none;
+    }
+
+    .auth-right {
+        width: 100%;
+    }
+
+    .auth-card {
+        max-width: 480px;
+    }
+}
+
+/* === Microinteracciones === */
+input:focus,
+button:focus {
+    outline: none !important;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+.super-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 28px;
+    background: #161320;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 100px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0 0 20px rgba(69, 1, 255, 0.1);
+    backdrop-filter: blur(8px);
+    z-index: 1;
+}
+
+.super-button::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, #9d89ec, #492fb3, #492fb3);
+    animation: rotate 4s linear infinite;
+    z-index: -2;
+}
+
+.super-button::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: #161320;
+    border-radius: inherit;
+    z-index: -1;
+}
+
+.super-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(8, 30, 228, 0.562);
+}
+
+.super-button:hover .arrow {
+    transform: translateX(6px);
+}
+
+.arrow {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s ease-in-out;
+    color: #492fb3;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.super-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

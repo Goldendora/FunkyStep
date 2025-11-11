@@ -1,0 +1,270 @@
+@import url('https://unpkg.com/normalize.css') layer(normalize);
+
+@layer normalize, base, demo;
+
+/* ===============================
+   TABLA FULLSCREEN - MODO OSCURO FUNKYSTEP
+=============================== */
+@layer demo {
+    :root {
+        --accent: hsla(0, 0%, 100%, 0);
+        --border: rgba(255, 255, 255, 0.08);
+        --background: #0d0d0d;
+        --head: #181818;
+        --selected: rgba(20, 114, 221, 0.301);
+        --color: rgba(255, 255, 255, 0.88);
+        --hover-background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* ======= ESTRUCTURA GENERAL ======= */
+    .user-fullscreen {
+        position: fixed;
+        top: 70px;
+        /* altura navbar */
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: var(--background);
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+    }
+
+    .user-header {
+        flex-shrink: 0;
+        background: var(--background);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 3;
+    }
+
+    /* ======= TABLA PRINCIPAL ======= */
+    .members {
+        flex-grow: 1;
+        overflow-y: auto;
+        backdrop-filter: blur(8px);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        color: var(--color);
+        background: var(--background);
+        table-layout: fixed;
+    }
+
+    thead {
+        background: var(--head);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 2;
+    }
+
+    th,
+    td {
+        padding: 0.9rem 1rem;
+        text-align: center !important;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    th {
+        text-transform: uppercase;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+    }
+
+    tr {
+        border-bottom: 1px solid var(--border);
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    tr:hover {
+        background: var(--hover-background);
+        transform: scale(1.002);
+    }
+
+    tr:focus-within {
+        background: var(--selected);
+        outline: 1px solid var(--accent);
+    }
+
+    table:focus-within tbody tr:not(:focus-within) {
+        filter: blur(3px) saturate(0.3);
+        opacity: 0.4;
+    }
+
+    /* ======= ACCIONES ======= */
+    .acciones {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+    }
+
+    /* ======= BOTONES Y SELECT ======= */
+    select.form-select-sm {
+        border-radius: 6px;
+        font-size: 0.8rem;
+        background-color: #1f1f1f;
+        border: 1px solid var(--border);
+        color: var(--color);
+        transition: all 0.2s ease;
+    }
+
+    select.form-select-sm:hover {
+        background-color: #2a2a2a;
+    }
+
+    .btn-sm {
+        border-radius: 8px;
+        font-weight: 600;
+        padding: 0.4rem 0.9rem;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn-success {
+        background-color: #198754;
+        border: none;
+        color: #fff;
+    }
+
+    .btn-success:hover {
+        background-color: #24a365;
+        transform: translateY(-2px);
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        border: none;
+        color: #000;
+    }
+
+    .btn-warning:hover {
+        background-color: #ffcd39;
+        transform: translateY(-2px);
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        color: #fff;
+    }
+
+    .btn-danger:hover {
+        background-color: #b52a35;
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+        background-color: #3a3a3a;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #555;
+    }
+
+    /* ======= BADGES ======= */
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.4em 0.6em;
+        border-radius: 6px;
+    }
+
+    /* ======= FOTO DE PERFIL ======= */
+    .foto-perfil {
+        text-align: center;
+        vertical-align: middle;
+        width: 70px;
+    }
+
+    .profile-img {
+        width: 42px;
+        height: 42px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        transition: transform 0.2s ease;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .profile-img:hover {
+        transform: scale(1.1);
+    }
+
+    .profile-placeholder {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #444;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        box-shadow: 0 0 4px rgba(255, 255, 255, 0.1);
+    }
+
+    .profile-placeholder i {
+        font-size: 1.2rem;
+        color: #fff;
+        line-height: 1;
+    }
+
+    table th,
+    table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    /* ======= SCROLL ======= */
+    .members::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .members::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+    }
+
+    .members::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.35);
+    }
+}
+
+/* ===============================
+   BASE GLOBAL
+=============================== */
+@layer base {
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    body {
+        background: #0d0d0d;
+        color: #e0e0e0;
+        font-family: 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+    }
+}
+table {
+    table-layout: auto !important;
+}
+
+/* Si alguna tabla necesita fijo, solo agrega .fixed-table en el HTML */
+.fixed-table {
+    table-layout: fixed !important;
+}
