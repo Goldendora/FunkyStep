@@ -47,6 +47,7 @@ body {
     /* sobre el navbar */
 }
 
+
 .dropdown-item {
     color: var(--light);
 }
@@ -264,26 +265,26 @@ body {
 
 /* Burbujas individuales */
 .b1 {
-    width: 122px;
-    height: 120px;
+    width: 40%;
+    height: 50%;
     left: 20%;
-    top: 40%;
+    top: 60%;
     animation: float 1s infinite ease;
     z-index: 1;
 }
 
 .b2 {
-    width: 280px;
-    height: 280px;
-    right: -100px;
+    width: 30%;
+    height: 40%;
+    right: 10%;
     top: 1%;
     animation: float 2.3s infinite ease;
     z-index: 4;
 }
 
 .b3 {
-    width: 230px;
-    height: 230px;
+    width: 30%;
+    height: 40%;
     right: 6%;
     top: 60%;
     animation: float 1.5s infinite ease;
@@ -291,17 +292,17 @@ body {
 }
 
 .b4 {
-    width: 260px;
-    height: 260px;
-    left: 5%;
+    width: 40%;
+    height: 50%;
+    left: 1%;
     bottom: 6%;
     animation: float 1.3s infinite ease;
     z-index: 4;
 }
 
 .b5 {
-    width: 192px;
-    height: 190px;
+    width: 25%;
+    height: 32%;
     left: 0%;
     top: 20%;
     animation: float 2s infinite ease;
@@ -309,8 +310,8 @@ body {
 }
 
 .b6 {
-    width: 332px;
-    height: 330px;
+    width: 25%;
+    height: 32%;
     left: 40%;
     top: 23%;
     animation: float 2s infinite ease;
@@ -681,7 +682,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
     gap: 1.5rem;
-    margin-left: 30%;
+    margin-left: 25%;
 }
 
 .subtitle {
@@ -704,5 +705,119 @@ body {
 
     .sidebar-filtros {
         width: 100%;
+    }
+}
+
+/* === 📱 Responsive Mejorado Funkystep Catalog === */
+
+/* --- Tablets (pantallas medianas: hasta 1200px) --- */
+@media (max-width: 1200px) {
+    .sidebar-filtros {
+        flex: 0 0 220px;
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+    .productos-grid {
+        margin-left: 0;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
+    .catalogo-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* --- Tablets pequeñas y móviles horizontales (≤ 992px) --- */
+@media (max-width: 992px) {
+    .catalogo-container {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0 1rem;
+    }
+
+    .sidebar-filtros {
+        position: relative;
+        width: 100%;
+        margin-bottom: 2rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .productos-grid {
+        margin-left: 0;
+        grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
+        gap: 1rem;
+    }
+
+    .sidebar-filtros h5 {
+        text-align: center;
+        font-size: 1.1rem;
+    }
+
+    .sidebar-filtros .btn {
+        font-size: 0.9rem;
+    }
+}
+
+/* --- Móviles medianos (≤ 768px) --- */
+@media (max-width: 768px) {
+    .productos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80%, 1fr));
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    .sidebar-filtros {
+        padding: 1rem 1.2rem;
+    }
+
+    .sidebar-filtros input,
+    .sidebar-filtros select {
+        font-size: 0.9rem;
+    }
+
+    .catalogo-container {
+        padding-bottom: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* --- Móviles pequeños (≤ 576px) --- */
+@media (max-width: 576px) {
+    h2.fw-bold {
+        font-size: 1.6rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+    }
+
+    .productos-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .sidebar-filtros {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+
+    .sidebar-filtros .btn {
+        font-size: 0.85rem;
+        padding: 0.7rem 1rem;
+    }
+
+    .sidebar-filtros label {
+        font-size: 0.85rem;
+    }
+
+    .sidebar-filtros input,
+    .sidebar-filtros select {
+        font-size: 0.85rem;
     }
 }

@@ -23,7 +23,7 @@
 
     <div class="container-fluid px-5 mt-5">
         <div class="content textoblanco">
-            <h1 class="title">
+            <h1 class="title text-center">
                 Estos son nuestros productos más vendidos
             </h1>
             <p class="subtitle">Si lo piensas, lo encuentras en FunkyStep</p>
