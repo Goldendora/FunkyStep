@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('title', 'Catálogo | Funkystep')
-@vite(['resources/css/app.css'])
 @section('content')
     <div>
         <h2 class="fw-bold text-center mb-4 text-white ">Catálogo de Productos</h2>
@@ -58,7 +57,7 @@
             </aside>
 
             {{-- 💎 PRODUCTOS --}}
-            <section class="productos-grid">
+            <section class="productos-grid" data-aos="fade-up" >
                 @if(isset($products) && count($products) > 0)
                     @foreach($products as $product)
                         <x-product-card :product="$product" />

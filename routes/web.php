@@ -44,7 +44,8 @@ Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name(
 // Cualquier usuario (logueado o invitado) puede acceder.
 Route::get('/dashboard', [ProductController::class, 'showPublic'])->name('dashboard');
 Route::get('/catalog', [ProductController::class, 'showCatalog'])->name('catalog.index');
-
+Route::view('/about', 'pages.about')->name('about');
+Route::view('/contact', 'pages.contact')->name('contact');
 
 // -------------------------------------------------------------
 // REDIRECCIÓN RAÍZ (Home -> Dashboard)

@@ -13,10 +13,10 @@
                     <a class="nav-link fw-semibold btn-funky" href="{{ route('catalog.index') }}" >Collection</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fw-semibold btn-funky" href="#about">About Us</a>
+                    <a class="nav-link fw-semibold btn-funky" href="{{ route('about') }}">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fw-semibold btn-funky" href="#contact">Contact</a>
+                    <a class="nav-link fw-semibold btn-funky" href="{{ route('contact') }}">Contact</a>
                 </li>
 
                 {{-- Si el usuario es admin --}}

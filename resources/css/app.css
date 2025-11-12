@@ -821,3 +821,14 @@ body {
         font-size: 0.85rem;
     }
 }
+
+/* === Hover de íconos destacados === */
+.icon-hover {
+    transition: transform 0.3s ease, color 0.3s ease;
+    display: inline-block;
+}
+
+.icon-hover:hover {
+    transform: translateY(-8px) scale(1.1);
+    color: var(--secondary) !important; /* usa el color institucional */
+}
