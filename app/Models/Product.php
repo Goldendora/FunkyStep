@@ -37,6 +37,8 @@ class Product extends Model
         'is_active' => 'boolean',
     ];
 
+
+
     /**
      * Accesor para obtener el precio final con descuento aplicado.
      */
@@ -60,5 +62,6 @@ class Product extends Model
     {
         return $this->hasMany(\App\Models\CartItem::class);
     }
+    
 
 }

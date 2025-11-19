@@ -21,7 +21,7 @@ return new class extends Migration
             // Clasificación y detalles comerciales
             $table->string('category')->nullable();        // Categoría (zapatillas, deportivas, casual, etc.)
             $table->string('brand')->nullable();           // Marca (Nike, Adidas, etc.)
-            $table->string('sku')->unique();               // Código único del producto
+            $table->string('sku')->unique();           // Código único del producto
             $table->decimal('discount', 5, 2)->default(0); // Descuento en %
 
             // Métricas para reportes

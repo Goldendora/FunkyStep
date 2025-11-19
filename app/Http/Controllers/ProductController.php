@@ -20,6 +20,12 @@ class ProductController extends Controller
 
         return view('dashboard', compact('banerproducts'));
     }
+
+    private function generateSKU()
+    {
+        return 'SKU-' . strtoupper(uniqid());
+    }
+
     /**
      * Mostrar el catálogo completo de productos activos (público).
      */
@@ -82,6 +88,8 @@ class ProductController extends Controller
     /**
      * Mostrar formulario para crear un nuevo producto.
      */
+    
+    
     public function create()
     {
         return view('products.create');
@@ -99,20 +107,23 @@ class ProductController extends Controller
             'stock' => 'required|integer|min:0',
             'category' => 'nullable|string|max:100',
             'brand' => 'nullable|string|max:100',
-            'sku' => 'required|string|max:50|unique:products',
             'discount' => 'nullable|numeric|min:0|max:100',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'is_active' => 'nullable',
         ]);
 
-        // Guardar imagen
+        // 🔥 Generar SKU automático SIEMPRE
+        $validated['sku'] = 'SKU-' . strtoupper(uniqid());
+
+        // Imagen
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('product_images', 'public');
         }
 
-        // Marcar si está activo o no
-        $validated['is_active'] = $request->has('is_active');
+        // Activo/inactivo
+        $validated['is_active'] = $request->boolean('is_active');
 
+        // Crear
         Product::create($validated);
 
         return redirect()->route('products.index')->with('success', 'Producto agregado correctamente.');
@@ -144,6 +155,7 @@ class ProductController extends Controller
             'discount' => 'nullable|numeric|min:0|max:100',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'is_active' => 'nullable',
+
         ]);
 
         // Si se sube una nueva imagen, reemplazar la anterior
@@ -155,7 +167,7 @@ class ProductController extends Controller
         }
 
         // Marcar si está activo o no
-        $validated['is_active'] = $request->has('is_active');
+        $validated['is_active'] = filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN);
 
         $product->update($validated);
 
