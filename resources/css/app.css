@@ -47,6 +47,7 @@ body {
     /* sobre el navbar */
 }
 
+
 .dropdown-item {
     color: var(--light);
 }
@@ -122,8 +123,15 @@ body {
     font-size: clamp(1rem, 2vw, 1.25rem);
     letter-spacing: 0.4em;
     font-weight: 700;
-    color: #c9c9c9;
+    color: #ffffff;
     margin-bottom: 20px;
+}
+
+.subtitle {
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .hero .price {
@@ -257,26 +265,26 @@ body {
 
 /* Burbujas individuales */
 .b1 {
-    width: 122px;
-    height: 120px;
+    width: 40%;
+    height: 50%;
     left: 20%;
-    top: 40%;
+    top: 60%;
     animation: float 1s infinite ease;
     z-index: 1;
 }
 
 .b2 {
-    width: 280px;
-    height: 280px;
-    right: -100px;
+    width: 30%;
+    height: 40%;
+    right: 10%;
     top: 1%;
     animation: float 2.3s infinite ease;
     z-index: 4;
 }
 
 .b3 {
-    width: 230px;
-    height: 230px;
+    width: 30%;
+    height: 40%;
     right: 6%;
     top: 60%;
     animation: float 1.5s infinite ease;
@@ -284,17 +292,17 @@ body {
 }
 
 .b4 {
-    width: 260px;
-    height: 260px;
-    left: 5%;
+    width: 40%;
+    height: 50%;
+    left: 1%;
     bottom: 6%;
     animation: float 1.3s infinite ease;
     z-index: 4;
 }
 
 .b5 {
-    width: 192px;
-    height: 190px;
+    width: 25%;
+    height: 32%;
     left: 0%;
     top: 20%;
     animation: float 2s infinite ease;
@@ -302,8 +310,8 @@ body {
 }
 
 .b6 {
-    width: 332px;
-    height: 330px;
+    width: 25%;
+    height: 32%;
     left: 40%;
     top: 23%;
     animation: float 2s infinite ease;
@@ -395,13 +403,14 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(330px, 360px));
     gap: 3rem;
-    justify-content: center;   
-    justify-items: center;    
-    align-items: start;       
-    margin: 4rem auto;        
+    justify-content: center;
+    justify-items: center;
+    align-items: start;
+    margin: 4rem auto;
     width: 100%;
-    max-width: 1300px;        
+    max-width: 1300px;
 }
+
 .product {
     position: relative;
     width: 360px;
@@ -620,4 +629,206 @@ body {
 /* Hover: cambia color cuando pasas el mouse */
 ::-webkit-scrollbar-thumb:hover {
     background-color: #444;
+}
+
+.catalogo-container {
+    display: flex;
+    flex-wrap: wrap;
+    color: #fff;
+}
+
+/* --- Filtros laterales --- */
+.sidebar-filtros {
+    flex: 0 0 250px;
+    background-color: #181818;
+    border-radius: 16px;
+    padding: 1.5rem;
+    height: fit-content;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    position: fixed;
+}
+
+.sidebar-filtros h5 {
+    font-weight: 700;
+    color: #f5f5f5;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sidebar-filtros label {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    color: #ccc;
+}
+
+.sidebar-filtros input,
+.sidebar-filtros select {
+    background-color: #222;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+}
+
+.sidebar-filtros .btn {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* --- Contenedor de productos --- */
+.productos-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    gap: 1.5rem;
+    margin-left: 25%;
+}
+
+.subtitle {
+    text-align: center;
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+/* --- Paginador --- */
+.pagination {
+    justify-content: center;
+}
+
+/* --- Responsivo --- */
+@media (max-width: 992px) {
+    .catalogo-container {
+        flex-direction: column;
+    }
+
+    .sidebar-filtros {
+        width: 100%;
+    }
+}
+
+/* === 📱 Responsive Mejorado Funkystep Catalog === */
+
+/* --- Tablets (pantallas medianas: hasta 1200px) --- */
+@media (max-width: 1200px) {
+    .sidebar-filtros {
+        flex: 0 0 220px;
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+    .productos-grid {
+        margin-left: 0;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
+    .catalogo-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* --- Tablets pequeñas y móviles horizontales (≤ 992px) --- */
+@media (max-width: 992px) {
+    .catalogo-container {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0 1rem;
+    }
+
+    .sidebar-filtros {
+        position: relative;
+        width: 100%;
+        margin-bottom: 2rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .productos-grid {
+        margin-left: 0;
+        grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
+        gap: 1rem;
+    }
+
+    .sidebar-filtros h5 {
+        text-align: center;
+        font-size: 1.1rem;
+    }
+
+    .sidebar-filtros .btn {
+        font-size: 0.9rem;
+    }
+}
+
+/* --- Móviles medianos (≤ 768px) --- */
+@media (max-width: 768px) {
+    .productos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80%, 1fr));
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    .sidebar-filtros {
+        padding: 1rem 1.2rem;
+    }
+
+    .sidebar-filtros input,
+    .sidebar-filtros select {
+        font-size: 0.9rem;
+    }
+
+    .catalogo-container {
+        padding-bottom: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* --- Móviles pequeños (≤ 576px) --- */
+@media (max-width: 576px) {
+    h2.fw-bold {
+        font-size: 1.6rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+    }
+
+    .productos-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .sidebar-filtros {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+
+    .sidebar-filtros .btn {
+        font-size: 0.85rem;
+        padding: 0.7rem 1rem;
+    }
+
+    .sidebar-filtros label {
+        font-size: 0.85rem;
+    }
+
+    .sidebar-filtros input,
+    .sidebar-filtros select {
+        font-size: 0.85rem;
+    }
+}
+
+/* === Hover de íconos destacados === */
+.icon-hover {
+    transition: transform 0.3s ease, color 0.3s ease;
+    display: inline-block;
+}
+
+.icon-hover:hover {
+    transform: translateY(-8px) scale(1.1);
+    color: var(--secondary) !important; /* usa el color institucional */
 }

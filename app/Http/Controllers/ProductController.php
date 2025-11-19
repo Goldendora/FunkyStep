@@ -20,11 +20,61 @@ class ProductController extends Controller
 
         return view('dashboard', compact('banerproducts'));
     }
-    public function showProducts()
+
+    private function generateSKU()
     {
-        $products = Product::all();
-        return view('collection', compact('products'));
+        return 'SKU-' . strtoupper(uniqid());
     }
+
+    /**
+     * Mostrar el catálogo completo de productos activos (público).
+     */
+    /**
+     * Mostrar el catálogo completo de productos activos con filtros y búsqueda.
+     */
+    public function showCatalog(Request $request)
+    {
+        // Iniciamos la query base: solo productos activos
+        $query = Product::where('is_active', true);
+
+        // --- FILTROS DINÁMICOS ---
+        // Búsqueda por nombre o descripción
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('description', 'LIKE', "%{$search}%");
+            });
+        }
+
+        // Filtro por marca
+        if ($request->filled('brand')) {
+            $query->where('brand', $request->input('brand'));
+        }
+
+        // Filtro por categoría
+        if ($request->filled('category')) {
+            $query->where('category', $request->input('category'));
+        }
+
+        // Filtro por rango de precios
+        if ($request->filled('min_price')) {
+            $query->where('price', '>=', $request->input('min_price'));
+        }
+        if ($request->filled('max_price')) {
+            $query->where('price', '<=', $request->input('max_price'));
+        }
+
+        // --- EJECUTAR CONSULTA ---
+        $products = $query->orderBy('created_at', 'desc')->paginate(12);
+
+        // Obtener marcas y categorías únicas para los selectores
+        $brands = Product::where('is_active', true)->distinct()->pluck('brand')->filter();
+        $categories = Product::where('is_active', true)->distinct()->pluck('category')->filter();
+
+        return view('catalog.index', compact('products', 'brands', 'categories'));
+    }
+
 
     /**
      * Mostrar listado de productos (solo para el panel admin).
@@ -38,6 +88,8 @@ class ProductController extends Controller
     /**
      * Mostrar formulario para crear un nuevo producto.
      */
+    
+    
     public function create()
     {
         return view('products.create');
@@ -55,20 +107,23 @@ class ProductController extends Controller
             'stock' => 'required|integer|min:0',
             'category' => 'nullable|string|max:100',
             'brand' => 'nullable|string|max:100',
-            'sku' => 'required|string|max:50|unique:products',
             'discount' => 'nullable|numeric|min:0|max:100',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'is_active' => 'nullable',
         ]);
 
-        // Guardar imagen
+        // 🔥 Generar SKU automático SIEMPRE
+        $validated['sku'] = 'SKU-' . strtoupper(uniqid());
+
+        // Imagen
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('product_images', 'public');
         }
 
-        // Marcar si está activo o no
-        $validated['is_active'] = $request->has('is_active');
+        // Activo/inactivo
+        $validated['is_active'] = $request->boolean('is_active');
 
+        // Crear
         Product::create($validated);
 
         return redirect()->route('products.index')->with('success', 'Producto agregado correctamente.');
@@ -100,6 +155,7 @@ class ProductController extends Controller
             'discount' => 'nullable|numeric|min:0|max:100',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'is_active' => 'nullable',
+
         ]);
 
         // Si se sube una nueva imagen, reemplazar la anterior
@@ -111,7 +167,7 @@ class ProductController extends Controller
         }
 
         // Marcar si está activo o no
-        $validated['is_active'] = $request->has('is_active');
+        $validated['is_active'] = filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN);
 
         $product->update($validated);
 

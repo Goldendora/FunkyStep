@@ -15,8 +15,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-light">
-    {{-- Navbar idéntica al dashboard --}}
+<body class="bg-light" >
+
     <x-navbar />
     {{-- Contenido principal dinámico --}}
     <main class="container-fluid px-5 min-vh-100 d-flex flex-column justify-content-start"
@@ -42,5 +42,17 @@
 
     <x-footer />
 </body>
+
+<!-- AOS Animations -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 900,
+        offset: 100,
+        easing: 'ease-in-out',
+        once: true
+    });
+</script>
+
 
 </html>

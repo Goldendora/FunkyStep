@@ -21,7 +21,7 @@ Requiere: $cartItems, $cartTotal
                     {{-- Información del producto --}}
                     <div class="grow">
                         <h6 class="m-0 text-white">{{ $item->product->name }}</h6>
-                        <small class="text-muted d-block">{{ $item->quantity }} × ${{ number_format($item->price, 2) }}</small>
+                        <small class="text-white d-block">{{ $item->quantity }} × ${{ number_format($item->price, 2) }}</small>
                     </div>
 
                     {{-- Botón eliminar --}}
