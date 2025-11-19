@@ -15,6 +15,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
 </head>
 
+     <x-chatbot />
+
 <body class="bg-light" >
 
     <x-navbar />

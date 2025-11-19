@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentWebhookController;
+use App\Http\Controllers\ChatbotController;
 
 
 
@@ -46,6 +47,8 @@ Route::get('/dashboard', [ProductController::class, 'showPublic'])->name('dashbo
 Route::get('/catalog', [ProductController::class, 'showCatalog'])->name('catalog.index');
 Route::view('/about', 'pages.about')->name('about');
 Route::view('/contact', 'pages.contact')->name('contact');
+Route::post('/chatbot', [ChatbotController::class, 'ask'])->name('chatbot.ask');
+
 
 // -------------------------------------------------------------
 // REDIRECCIÓN RAÍZ (Home -> Dashboard)
