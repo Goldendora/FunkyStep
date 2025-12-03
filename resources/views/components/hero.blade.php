@@ -38,7 +38,7 @@
 
             {{-- Imagen principal --}}
             <section class="visual" aria-label="Vista del producto">
-                <img src="{{ Vite::asset('public/images/ofer/image.png') }}"
+                <img src="{{ asset('images/ofer/image.png') }}"
                     alt="Zapatilla Nike Air Max 90 en gris y negro" />
 
                 {{-- Burbujas decorativas (mantengo clases b1..b6) --}}
@@ -53,11 +53,11 @@
         <div class="container-fluid px-5 hero-grid">
             {{-- Imagen decorativa secundaria --}}
             <section class="visual2-wrap" aria-label="Vista del producto">
-                <img id="visual2" src="{{ Vite::asset('public/images/decoration/image1.png') }}"
+                <img id="visual2" src="{{ asset('images/decoration/image1.png') }}"
                     alt="Zapatilla Nike Air Max 90 en gris y negro" class="visual2" />
             </section>
             <section class="visual2-wrap" aria-label="Vista del producto">
-                <img src="{{ Vite::asset('public\images\decoration\HallowenBaner.png') }}"
+                <img src="{{ asset('images/decoration/HallowenBaner.png') }}"
                     alt="Zapatilla Nike Air Max 90 en gris y negro" class="visual2" />
             </section>
         </div>
