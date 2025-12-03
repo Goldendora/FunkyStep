@@ -5,7 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel - Funkystep</title>
+{{-- Assets: usar Vite en local y Build en Ngrok/Producción --}}
+@if (app()->environment('local'))
+    {{-- Desarrollo: usa Vite con HMR --}}
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/cart.css'])
+@else
+    {{-- Producción/Ngrok: usa build estático --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/cart.css'], 'build')
+@endif
+
     <link rel="icon" type="image/png" href="{{ asset('images/logo/funky.png') }}">
 
 

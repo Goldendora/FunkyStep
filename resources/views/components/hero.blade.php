@@ -1,8 +1,8 @@
 <main class="hero">
         <div class="video-container">
-            <video autoplay loop muted playsinline id="bg-video"
-                src="{{ Vite::asset('public/videos/banner/funkystepbaner.mp4') }}">
-            </video>
+                <video autoplay loop muted playsinline id="bg-video">
+                    <source src="{{ Vite::asset('resources/videos/banner/funkystepbaner.mp4') }}" type="video/mp4">
+                </video>
             <div class="separator"></div>
             <div class="fw-bold text-uppercase overlay">
                 <h1>FUNKYSTEP</h1>
