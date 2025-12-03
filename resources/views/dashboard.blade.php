@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Funkystep</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/cart.css', 'resources/js/app.js'])
     <link rel="icon" type="image/png" href="{{ asset('images/logo/funky.png') }}">
 
     <!-- Fuente principal -->
